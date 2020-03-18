@@ -4,6 +4,14 @@ def test_client
   Packlink::Client.new("secret_key")
 end
 
+def production_endpoint(path = "")
+  "https://api.packlink.com#{path}"
+end
+
+def sandbox_endpoint(path = "")
+  "https://apisandbox.packlink.com#{path}"
+end
+
 describe Packlink::Client do
   describe "#initialize" do
     it "stores the api key" do
@@ -25,12 +33,24 @@ describe Packlink::Client do
   describe "#endpoint" do
     it "returns the production endpoint in production" do
       Packlink::Config.environment = "production"
-      test_client.endpoint.should eq("https://api.packlink.com")
+      test_client.endpoint.should eq(production_endpoint)
     end
 
     it "returns the sandbox endpoint in sandbox" do
       Packlink::Config.environment = "sandbox"
-      test_client.endpoint.should eq("https://apisandbox.packlink.com")
+      test_client.endpoint.should eq(sandbox_endpoint)
+    end
+  end
+
+  describe "#api_path" do
+    it "prepends the api version" do
+      test_client.api_path("my-method")
+        .should eq("/v1/my-method")
+    end
+
+    it "accepts a full api uri" do
+      test_client.api_path(sandbox_endpoint("/v1/my-method"))
+        .should eq("/v1/my-method")
     end
   end
 
@@ -38,6 +58,122 @@ describe Packlink::Client do
     it "fails with an invalid http method" do
       expect_raises(Packlink::MethodNotSupportedException) do
         test_client.perform_http_call("PUT", "my-method")
+      end
+    end
+
+    it "has defaults to be able to perform a request" do
+      WebMock.stub(:get, "https://apisandbox.packlink.com/v1/my-method")
+        .with(headers: {"Authorization" => "secret_key"})
+        .to_return(status: 200, body: "{}")
+
+      test_client.perform_http_call("GET", "my-method")
+    end
+
+    it "returns a raw json string for successful requests" do
+      WebMock.stub(:get, "https://apisandbox.packlink.com/v1/good")
+        .to_return(status: 200, body: %({"ip": "0.0.0.0"}))
+
+      response = test_client.perform_http_call("GET", "good")
+      json = JSON.parse(response)
+      json["ip"].should eq("0.0.0.0")
+    end
+
+    it "returns an empty string for a response without content" do
+      WebMock.stub(:get, "https://apisandbox.packlink.com/v1/empty")
+        .to_return(status: 204)
+
+      response = test_client.perform_http_call("GET", "empty")
+      response.should eq("")
+    end
+
+    it "raises a request exception for an unauthorized error" do
+      WebMock.stub(:post, "https://apisandbox.packlink.com/v1/unauthorized")
+        .to_return(status: 401, body: read_fixture("exceptions/unauthorized"))
+
+      expect_raises(Packlink::RequestException) do
+        test_client.perform_http_call("POST", "unauthorized")
+      end
+    end
+
+    it "raises a request exception for a not found error" do
+      WebMock.stub(:post, "https://apisandbox.packlink.com/v1/missing")
+        .to_return(status: 404)
+
+      expect_raises(Packlink::RequestException) do
+        test_client.perform_http_call("POST", "missing")
+      end
+    end
+
+    it "raises a request exception for a server error" do
+      WebMock.stub(:post, "https://apisandbox.packlink.com/v1/error")
+        .to_return(status: 500, body: read_fixture("exceptions/countries"))
+
+      expect_raises(Packlink::RequestException) do
+        test_client.perform_http_call("POST", "error")
+      end
+    end
+  end
+
+  describe ".instance" do
+    it "returns a new instance" do
+      Packlink::Config.api_key = "my_key"
+      Packlink::Client.instance.should be_a(Packlink::Client)
+    end
+
+    it "never initializes another new instance" do
+      Packlink::Config.api_key = "my_key"
+      instance = Packlink::Client.instance
+      Packlink::Client.instance.should eq(instance)
+    end
+  end
+
+  describe ".with_api_key" do
+    context "without a block" do
+      it "returns the instance for a given api key" do
+        client_1 = Packlink::Client.new("key_1")
+        client_2 = Packlink::Client.new("key_2")
+        Packlink::Client.with_api_key("key_1").should eq(client_1)
+        Packlink::Client.with_api_key("key_2").should eq(client_2)
+      end
+
+      it "never initializes another instance for the given api key" do
+        client = Packlink::Client.with_api_key("mastaba")
+        Packlink::Client.with_api_key("mastaba").should eq(client)
+      end
+    end
+
+    context "with a block" do
+      it "can be invoked" do
+        Packlink::Client.with_api_key("key_3") do |packlink|
+          packlink.should be_a(Packlink::Proxy)
+          packlink.client.should eq(Packlink::Client.with_api_key("key_3"))
+        end
+      end
+
+      pending "will use the same api key for all calls within a block" do
+        # WebMock.stub(:get, "https://api.mollie.com/v2/payments/first_payment")
+        #   .with(headers: {"Authorization" => "Bearer first_key"})
+        #   .to_return(body: read_fixture("payments/get.json"))
+        # WebMock.stub(:get, "https://api.mollie.com/v2/refunds/first_refund")
+        #   .with(headers: {"Authorization" => "Bearer first_key"})
+        #   .to_return(body: read_fixture("refunds/get.json"))
+
+        # WebMock.stub(:get, "https://api.mollie.com/v2/payments/another_payment")
+        #   .with(headers: {"Authorization" => "Bearer another_key"})
+        #   .to_return(body: read_fixture("payments/get.json"))
+        # WebMock.stub(:get, "https://api.mollie.com/v2/profiles/another_profile")
+        #   .with(headers: {"Authorization" => "Bearer another_key"})
+        #   .to_return(body: read_fixture("profiles/get.json"))
+
+        Packlink::Client.with_api_key("first_key") do |mollie|
+          mollie.payment.get("first_payment").should be_a(Packlink::Payment)
+          mollie.refund.get("first_refund").should be_a(Packlink::Refund)
+        end
+
+        Packlink::Client.with_api_key("another_key") do |mollie|
+          mollie.payment.get("another_payment").should be_a(Packlink::Payment)
+          mollie.profile.get("another_profile").should be_a(Packlink::Profile)
+        end
       end
     end
   end

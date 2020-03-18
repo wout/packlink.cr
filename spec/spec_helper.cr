@@ -3,7 +3,7 @@ require "webmock"
 require "../src/packlink"
 
 def read_fixture(file : String)
-  path = "#{__DIR__}/fixtures/#{file}"
+  path = "#{__DIR__}/fixtures/#{file}.json"
   if File.exists?(path)
     File.read(path)
   else

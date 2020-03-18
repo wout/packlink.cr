@@ -16,6 +16,8 @@ struct Packlink
 
   class MissingApiKeyException < Packlink::Exception; end
 
+  class ParamsMissingException < Packlink::Exception; end
+
   class RequestTimeoutException < Packlink::Exception; end
 
   class InvalidEnvironmentException < Packlink::Exception; end

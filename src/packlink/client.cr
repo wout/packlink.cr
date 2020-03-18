@@ -13,6 +13,10 @@ struct Packlink
       "https://api#{"sandbox" if Config.sandbox?}.packlink.com"
     end
 
+    def get(path : String, query : Hash | NamedTuple = HS2.new)
+      perform_http_call("GET", path, query: query)
+    end
+
     def perform_http_call(
       method : String,
       path : String,
@@ -26,6 +30,11 @@ struct Packlink
 
       client = http_client(URI.parse(endpoint))
       path = api_path(path)
+
+      unless query.empty?
+        nested_query = Util.build_nested_query(query)
+        path += "?#{nested_query}"
+      end
 
       begin
         if method == "GET"

@@ -6,11 +6,11 @@ struct Packlink
     end
 
     {% begin %}
-      {% resources = %w[
-           order
-         ] %}
+      {% resources = {
+           order: {"post"},
+         } %}
 
-      {% for resource in resources %}
+      {% for resource, methods in resources %}
         {% resource_class = resource.camelcase %}
 
         struct {{ resource_class.id }}
@@ -19,7 +19,7 @@ struct Packlink
           def initialize(@client : Client)
           end
 
-          {% for method in %w[all get create delete] %}
+          {% for method in methods %}
             def {{ method.id }}(*args)
               Packlink::{{ resource_class.id }}.{{ method.id }}(*args, client: @client)
             end

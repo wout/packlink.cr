@@ -114,6 +114,22 @@ describe Packlink::Client do
     end
   end
 
+  describe "#get" do
+    it "performs a get request" do
+      WebMock.stub(:get, "https://apisandbox.packlink.com/v1/order")
+        .to_return(body: "{}")
+
+      test_client.get("order").should eq("{}")
+    end
+
+    it "accepts query params" do
+      WebMock.stub(:get, "https://apisandbox.packlink.com/v1/order?some=stone")
+        .to_return(body: "{}")
+
+      test_client.get("order", {some: "stone"}).should eq("{}")
+    end
+  end
+
   describe ".instance" do
     it "returns a new instance" do
       Packlink::Config.api_key = "my_key"
@@ -176,5 +192,11 @@ describe Packlink::Client do
         end
       end
     end
+  end
+end
+
+struct Packlink
+  struct ClientPath
+    getter pattern = "client/path"
   end
 end

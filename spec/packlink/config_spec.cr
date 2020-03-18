@@ -37,4 +37,20 @@ describe Packlink::Config do
       end
     end
   end
+
+  describe ".production?" do
+    it "tests positive in production" do
+      Packlink::Config.environment = "production"
+      Packlink::Config.sandbox?.should be_false
+      Packlink::Config.production?.should be_true
+    end
+  end
+
+  describe ".sandbox?" do
+    it "tests positive in sandbox" do
+      Packlink::Config.environment = "sandbox"
+      Packlink::Config.production?.should be_false
+      Packlink::Config.sandbox?.should be_true
+    end
+  end
 end

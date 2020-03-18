@@ -17,6 +17,14 @@ struct Packlink
       perform_http_call("GET", path, query: query)
     end
 
+    def post(path : String, body : Hash | NamedTuple)
+      perform_http_call("POST", path, body: body)
+    end
+
+    def delete(path : String)
+      perform_http_call("DELETE", path)
+    end
+
     def perform_http_call(
       method : String,
       path : String,

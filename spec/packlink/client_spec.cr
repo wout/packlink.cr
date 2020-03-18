@@ -115,18 +115,36 @@ describe Packlink::Client do
   end
 
   describe "#get" do
-    it "performs a get request" do
+    it "fetches a resource" do
       WebMock.stub(:get, "https://apisandbox.packlink.com/v1/order")
-        .to_return(body: "{}")
+        .to_return(status: 200, body: "{}")
 
       test_client.get("order").should eq("{}")
     end
 
-    it "accepts query params" do
+    it "optionally accepts query params" do
       WebMock.stub(:get, "https://apisandbox.packlink.com/v1/order?some=stone")
-        .to_return(body: "{}")
+        .to_return(status: 200, body: "{}")
 
       test_client.get("order", {some: "stone"}).should eq("{}")
+    end
+  end
+
+  describe "#post" do
+    it "creates a resource" do
+      WebMock.stub(:post, "https://apisandbox.packlink.com/v1/orders")
+        .to_return(status: 200, body: "{}")
+
+      test_client.post("orders", {id: "65423"}).should eq("{}")
+    end
+  end
+
+  describe "#delete" do
+    it "deletes a resource" do
+      WebMock.stub(:delete, "https://apisandbox.packlink.com/v1/orders")
+        .to_return(status: 200, body: "{}")
+
+      test_client.delete("orders").should eq("{}")
     end
   end
 

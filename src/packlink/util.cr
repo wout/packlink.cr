@@ -25,6 +25,10 @@ struct Packlink
       prefix
     end
 
+    def self.normalize_hash(value : Hash | NamedTuple)
+      value.to_h.transform_keys(&.to_s)
+    end
+
     private def self.escape(value : String | Symbol)
       URI.encode_www_form(value.to_s)
     end

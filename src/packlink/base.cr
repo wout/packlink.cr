@@ -2,7 +2,7 @@ struct Packlink
   abstract struct Base
     macro will_create(pattern, mapping)
       def self.create(
-        body : NamedTuple | Hash,
+        body : NamedTuple | Hash = HS2.new,
         params : NamedTuple | Hash = HS2.new,
         query : NamedTuple | Hash = HS2.new,
         headers : NamedTuple | Hash = HS2.new,

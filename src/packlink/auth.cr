@@ -1,13 +1,15 @@
 struct Packlink
   struct Auth < Base
     will_create "users/recover-password/notify", {} of String => String
-    will_find "login", {token: String}
+    will_find "login", {
+      token: String,
+    }
 
     def self.login(
       credentials : NamedTuple | Hash,
       client : Client = Client.instance
     )
-      credentials = credentials.to_h.transform_keys(&.to_s)
+      credentials = Util.normalize_hash(credentials)
       email = credentials.delete("email")
       password = credentials.delete("password")
 
@@ -27,7 +29,7 @@ struct Packlink
       details : NamedTuple | Hash,
       client : Client = Client.instance
     )
-      query = details.to_h.transform_keys(&.to_s)
+      query = Util.normalize_hash(details)
 
       unless email = query.delete("email")
         raise AuthCredentialsMissingException.new("An email addess is required")

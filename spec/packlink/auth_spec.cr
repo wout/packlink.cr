@@ -14,18 +14,18 @@ describe Packlink::Auth do
       headers = {
         "Authorization" => "Basic bXlhY2NvdW50QHBhY2tsaW5rLmVzOm15UGFzc3dvcmQ=",
       }
-      WebMock.stub(:get, "https://apisandbox.packlink.com/v1/login")
+      WebMock.stub(:get, "https://apisandbox.packlink.com/v1/login?platform=pro&platform_country=gb")
         .with(headers: headers)
         .to_return(body: read_fixture("logins/get-response"))
 
-      response = Packlink::Auth.login({
+      resource = Packlink::Auth.login({
         email:            "myaccount@packlink.es",
         password:         "myPassword",
         platform:         "pro",
         platform_country: "gb",
       })
-      response.should be_a(Packlink::Auth::Resource)
-      response.token.should eq("44c2a45734386ca1ff9a77a6f82cd4f20962c094835f1f6d6ba8c7ef94b0a155")
+      resource.should be_a(Packlink::Auth::Resource)
+      resource.token.should eq("44c2a45734386ca1ff9a77a6f82cd4f20962c094835f1f6d6ba8c7ef94b0a155")
     end
 
     it "accepts a client to perform the request" do
@@ -38,9 +38,30 @@ describe Packlink::Auth do
         client: Packlink::Client.new("my_key"))
     end
 
-    it "fails if email and or password are not provided" do
+    it "fails if email and/or password are not provided" do
       expect_raises(Packlink::AuthCredentialsMissingException) do
         Packlink::Auth.login({platform: "pro"})
+      end
+    end
+  end
+
+  describe ".password_reset" do
+    it "requests a password reset link" do
+      WebMock.stub(:post, "https://apisandbox.packlink.com/v1/users/recover-password/notify?platform=pro&platform_country=gb")
+        .with(body: %({"email":"myaccount@packlink.es"}))
+        .to_return(body: "")
+
+      response = Packlink::Auth.reset_password({
+        email:            "myaccount@packlink.es",
+        platform:         "pro",
+        platform_country: "gb",
+      })
+      response.should be_a(Packlink::Auth::Response)
+    end
+
+    it "fails if email is not provided" do
+      expect_raises(Packlink::AuthCredentialsMissingException) do
+        Packlink::Auth.reset_password({platform: "pro"})
       end
     end
   end

@@ -44,6 +44,16 @@ describe Packlink::Base do
           headers: headers)
       end
 
+      it "accepts additional query params" do
+        WebMock.stub(:post, "https://apisandbox.packlink.com/v1/base/object/jip/janneke?platform=pro")
+          .to_return(body: %({"message": "Created successfully"}))
+
+        Packlink::BaseObject.create(
+          body: {fab: "ul.us"},
+          params: {vendor: "jip", id: "janneke"},
+          query: {platform: "pro"})
+      end
+
       it "fails with missing parameters" do
         expect_raises(Packlink::ParamsMissingException) do
           Packlink::BaseObject.create(

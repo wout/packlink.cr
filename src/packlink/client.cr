@@ -24,9 +24,10 @@ struct Packlink
     def post(
       path : String,
       body : Hash | NamedTuple,
+      query : Hash | NamedTuple = HS2.new,
       headers : Hash | NamedTuple = HS2.new
     )
-      perform_http_call("POST", path, body: body, headers: headers)
+      perform_http_call("POST", path, body: body, query: query, headers: headers)
     end
 
     def perform_http_call(
@@ -93,7 +94,7 @@ struct Packlink
     private def render(response : HTTP::Client::Response)
       case response.status_code
       when 200, 201
-        response.body
+        response.body.empty? ? "{}" : response.body
       when 204
         ""
       when 404

@@ -4,11 +4,12 @@ struct Packlink
       def self.create(
         body : NamedTuple | Hash,
         params : NamedTuple | Hash = HS2.new,
+        query : NamedTuple | Hash = HS2.new,
         headers : NamedTuple | Hash = HS2.new,
         client : Client = Client.instance
       )
         path = CreatePath.new(params).to_s
-        Response.from_json(client.post(path, body, headers: headers))
+        Response.from_json(client.post(path, body, query, headers))
       end
 
       struct Response
@@ -28,7 +29,7 @@ struct Packlink
         client : Client = Client.instance
       )
         path = FindPath.new(params).to_s
-        Resource.from_json(client.get(path, query, headers: headers))
+        Resource.from_json(client.get(path, query, headers))
       end
 
       struct Resource

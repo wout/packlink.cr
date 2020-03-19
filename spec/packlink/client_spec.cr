@@ -158,6 +158,13 @@ describe Packlink::Client do
       test_client.post("orders", {id: "65423"}).should eq("{}")
     end
 
+    it "optionally accepts query params" do
+      WebMock.stub(:post, "https://apisandbox.packlink.com/v1/order?some=stone")
+        .to_return(status: 200, body: "{}")
+
+      test_client.post("order", {id: "65423"}, query: {some: "stone"}).should eq("{}")
+    end
+
     it "optionally accepts headers" do
       headers = {"Auth" => "Secret"}
       WebMock.stub(:post, "https://apisandbox.packlink.com/v1/orders")

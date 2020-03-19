@@ -1,7 +1,7 @@
 struct Packlink
   struct Client
     API_VERSION = "v1"
-    METHODS     = %w[GET POST DELETE]
+    METHODS     = %w[GET POST]
 
     getter api_key : String?
 
@@ -19,10 +19,6 @@ struct Packlink
 
     def post(path : String, body : Hash | NamedTuple)
       perform_http_call("POST", path, body: body)
-    end
-
-    def delete(path : String)
-      perform_http_call("DELETE", path)
     end
 
     def perform_http_call(
@@ -59,11 +55,11 @@ struct Packlink
       end
     end
 
-    def api_path(method : String, id : String? = nil)
-      if method.starts_with?(endpoint)
-        URI.parse(method).path
+    def api_path(path : String, id : String? = nil)
+      if path.starts_with?(endpoint)
+        URI.parse(path).path
       else
-        "/#{API_VERSION}/#{method}/#{id}".chomp("/")
+        "/#{API_VERSION}/#{path}".chomp("/")
       end
     end
 
@@ -92,7 +88,7 @@ struct Packlink
         body = %({"message":"Resource missing"})
         raise ResourceNotFoundException.from_json(body)
       else
-        body = response.body.blank? ? %({"message":"Somehting went wrong"}) : response.body
+        body = response.body.blank? ? %({"message":"Something went wrong"}) : response.body
         raise RequestException.from_json(body)
       end
     end

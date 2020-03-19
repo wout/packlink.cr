@@ -139,15 +139,6 @@ describe Packlink::Client do
     end
   end
 
-  describe "#delete" do
-    it "deletes a resource" do
-      WebMock.stub(:delete, "https://apisandbox.packlink.com/v1/orders")
-        .to_return(status: 200, body: "{}")
-
-      test_client.delete("orders").should eq("{}")
-    end
-  end
-
   describe ".instance" do
     it "returns a new instance" do
       Packlink::Config.api_key = "my_key"

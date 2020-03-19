@@ -5,7 +5,7 @@ describe Packlink::Path do
     context "without params" do
       it "converts to a path" do
         path = Packlink::TestPath.new
-        path.to_s.should eq("/test/path")
+        path.to_s.should eq("test/path")
       end
     end
 
@@ -15,7 +15,7 @@ describe Packlink::Path do
           with:   "aap",
           params: "noot",
         })
-        path.to_s.should eq("/test/path/aap/noot")
+        path.to_s.should eq("test/path/aap/noot")
       end
 
       it "fails if not all required params are provided" do

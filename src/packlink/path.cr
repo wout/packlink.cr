@@ -16,7 +16,7 @@ struct Packlink
           raise ParamsMissingException.new(%(Missing param "#{match[1]}"))
         end
       end
-      "/#{path}"
+      path
     end
   end
 end

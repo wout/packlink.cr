@@ -1,12 +1,11 @@
 {
   "email" : "myaccount@packlink.es",
-  "password" : "myPassword",
   "estimated_delivery_volume" : "1 - 10",
+  "ip" : "123.123.123.123",
+  "password" : "myPassword",
+  "phone" : "+34666558877",
   "platform" : "PRO",
   "platform_country" : "ES",
-  "phone" : "+34666558877",
-  "ip" : "123.123.123.123",
-  "source" : "https://urlwhereregistrationoffered",
   "policies" : {
     "terms_and_conditions" : true,
     "data_processing" : true,
@@ -16,5 +15,6 @@
   "referral" : {
     "onboarding_product" : "dummy",
     "onboarding_sub_product" : "sub_dummy"
-  }
+  },
+  "source" : "https://urlwhereregistrationoffered"
 }

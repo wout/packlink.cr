@@ -2,6 +2,14 @@ require "spec"
 require "webmock"
 require "../src/packlink"
 
+def packlink_test_api_key
+  "ki4SpxPdR8860exd2hZ23kUZ6MpJp07x"
+end
+
+def configure_test_api_key
+  Packlink::Config.api_key = packlink_test_api_key
+end
+
 def read_fixture(file : String)
   path = "#{__DIR__}/fixtures/#{file}.json"
   if File.exists?(path)

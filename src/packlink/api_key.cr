@@ -3,17 +3,20 @@ struct Packlink
     will_create "users/api/keys", {
       token: String,
     }
+    will_find "users/api/keys", {
+      token: String,
+    }
 
-    def self.renew(
-      credentials : NamedTuple | Hash,
-      client : Client = Client.instance
-    )
-      unless old_key = Util.normalize_hash(credentials).delete("old_key")
-        raise MissingApiKeyException.new(
-          %(Expected "old_key" parameter but none was given))
-      end
+    def self.verify(key : String, client : Client = Client.instance)
+      find(headers: {"Authorization" => key}, client: client)
+    end
 
-      create(headers: {"Authorization" => old_key})
+    def self.valid?(key : String, client : Client = Client.instance)
+      verify(key, client).token == key
+    end
+
+    def self.renew(key : String, client : Client = Client.instance)
+      create(headers: {"Authorization" => key}, client: client)
     end
   end
 end

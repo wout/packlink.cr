@@ -57,4 +57,35 @@ describe Packlink::Proxy do
       test_proxy.auth.should be_a(Packlink::Proxy::Auth)
     end
   end
+
+  describe "#api_key" do
+    it "proxies verify" do
+      WebMock.stub(:get, "https://apisandbox.packlink.com/v1/users/api/keys")
+        .with(headers: {"Authorization" => "currently_stored_key"})
+        .to_return(body: read_fixture("api_keys/post-response"))
+
+      response = test_proxy.api_key.verify("currently_stored_key")
+      response.should be_a(Packlink::ApiKey::Resource)
+    end
+
+    it "verifies validity of the api key" do
+      WebMock.stub(:get, "https://apisandbox.packlink.com/v1/users/api/keys")
+        .to_return(body: read_fixture("api_keys/post-response"))
+
+      test_proxy.api_key.valid?("my_current_key").should be_a(Bool)
+    end
+
+    it "proxies renew" do
+      WebMock.stub(:post, "https://apisandbox.packlink.com/v1/users/api/keys")
+        .with(headers: {"Authorization" => "currently_stored_key"})
+        .to_return(body: read_fixture("api_keys/post-response"))
+
+      response = test_proxy.api_key.renew("currently_stored_key")
+      response.should be_a(Packlink::ApiKey::Response)
+    end
+
+    it "returns a proxy object" do
+      test_proxy.api_key.should be_a(Packlink::Proxy::ApiKey)
+    end
+  end
 end

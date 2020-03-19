@@ -69,6 +69,17 @@ describe Packlink::Client do
       test_client.perform_http_call("GET", "my-method")
     end
 
+    it "accepts additional headers" do
+      auth_headers = {
+        "Authorization" => "Basic bXlhY2NvdW50QHBhY2tsaW5rLmVzOm15UGFzc3dvcmQ=",
+      }
+      WebMock.stub(:get, "https://apisandbox.packlink.com/v1/auth-method")
+        .with(headers: auth_headers)
+        .to_return(body: "")
+
+      test_client.perform_http_call("GET", "auth-method", headers: auth_headers)
+    end
+
     it "returns a raw json string for successful requests" do
       WebMock.stub(:get, "https://apisandbox.packlink.com/v1/good")
         .to_return(status: 200, body: %({"ip": "0.0.0.0"}))
@@ -128,6 +139,15 @@ describe Packlink::Client do
 
       test_client.get("order", {some: "stone"}).should eq("{}")
     end
+
+    it "optionally accepts headers" do
+      headers = {"Auth" => "Secret"}
+      WebMock.stub(:get, "https://apisandbox.packlink.com/v1/order")
+        .with(headers: headers)
+        .to_return(status: 200, body: "{}")
+
+      test_client.get("order", headers: headers).should eq("{}")
+    end
   end
 
   describe "#post" do
@@ -136,6 +156,15 @@ describe Packlink::Client do
         .to_return(status: 200, body: "{}")
 
       test_client.post("orders", {id: "65423"}).should eq("{}")
+    end
+
+    it "optionally accepts headers" do
+      headers = {"Auth" => "Secret"}
+      WebMock.stub(:post, "https://apisandbox.packlink.com/v1/orders")
+        .with(headers: headers)
+        .to_return(status: 200, body: "{}")
+
+      test_client.post("orders", {id: "123"}, headers: headers).should eq("{}")
     end
   end
 

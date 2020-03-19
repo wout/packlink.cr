@@ -24,5 +24,7 @@ struct Packlink
 
   class MethodNotSupportedException < Packlink::Exception; end
 
+  class AuthCredentialsMissingException < Packlink::Exception; end
+
   class ResourceNotFoundException < Packlink::RequestException; end
 end

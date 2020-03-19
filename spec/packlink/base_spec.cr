@@ -32,6 +32,18 @@ describe Packlink::Base do
           client: Packlink::Client.new("custom_api_key"))
       end
 
+      it "accepts additional headers for the request" do
+        headers = {"Auth" => "super_secret"}
+        WebMock.stub(:post, "https://apisandbox.packlink.com/v1/base/object/jip/janneke")
+          .with(headers: headers)
+          .to_return(body: %({"message": "Created successfully"}))
+
+        Packlink::BaseObject.create(
+          body: {fab: "ul.us"},
+          params: {vendor: "jip", id: "janneke"},
+          headers: headers)
+      end
+
       it "fails with missing parameters" do
         expect_raises(Packlink::ParamsMissingException) do
           Packlink::BaseObject.create(
@@ -63,6 +75,17 @@ describe Packlink::Base do
           client: Packlink::Client.new("custom_api_key"))
       end
 
+      it "accepts additional headers for the request" do
+        headers = {"Auth" => "super_secret"}
+        WebMock.stub(:get, "https://apisandbox.packlink.com/v1/base/object/fabulous")
+          .with(headers: headers)
+          .to_return(body: %({"name": "Jip", "price": 12.5}))
+
+        Packlink::BaseObject.find(
+          params: {id: "fabulous"},
+          headers: headers)
+      end
+
       it "fails with missing parameters" do
         expect_raises(Packlink::ParamsMissingException) do
           Packlink::BaseObject.find
@@ -80,6 +103,15 @@ describe Packlink::Base do
         list.should be_a(Packlink::List(Packlink::BaseObject::Item))
         list.first.name.should eq("Super saver")
         list.first.delivery.should be_true
+      end
+
+      it "accepts additional headers for the request" do
+        headers = {"Auth" => "super_secret"}
+        WebMock.stub(:get, "https://apisandbox.packlink.com/v1/base/object")
+          .with(headers: headers)
+          .to_return(body: %([]))
+
+        Packlink::BaseObject.all(headers: headers)
       end
 
       it "accepts a client to preform the request" do

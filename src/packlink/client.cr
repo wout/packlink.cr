@@ -13,19 +13,28 @@ struct Packlink
       "https://api#{"sandbox" if Config.sandbox?}.packlink.com"
     end
 
-    def get(path : String, query : Hash | NamedTuple = HS2.new)
-      perform_http_call("GET", path, query: query)
+    def get(
+      path : String,
+      query : Hash | NamedTuple = HS2.new,
+      headers : Hash | NamedTuple = HS2.new
+    )
+      perform_http_call("GET", path, query: query, headers: headers)
     end
 
-    def post(path : String, body : Hash | NamedTuple)
-      perform_http_call("POST", path, body: body)
+    def post(
+      path : String,
+      body : Hash | NamedTuple,
+      headers : Hash | NamedTuple = HS2.new
+    )
+      perform_http_call("POST", path, body: body, headers: headers)
     end
 
     def perform_http_call(
       method : String,
       path : String,
       body : Hash | NamedTuple = HS2.new,
-      query : Hash | NamedTuple = HS2.new
+      query : Hash | NamedTuple = HS2.new,
+      headers : Hash | NamedTuple = HS2.new
     )
       unless METHODS.includes?(method)
         raise MethodNotSupportedException.new(
@@ -40,12 +49,15 @@ struct Packlink
         path += "?#{nested_query}"
       end
 
+      request_headers = http_headers
+      headers.each { |key, value| request_headers[key.to_s] = value }
+
       begin
         if method == "GET"
-          response = client.get(path, headers: headers)
+          response = client.get(path, headers: request_headers)
         else
           body = body.to_h.delete_if { |_k, v| v.nil? }.to_json
-          response = client.exec(method, path, headers: headers, body: body)
+          response = client.exec(method, path, headers: request_headers, body: body)
         end
         render(response)
       rescue e : IO::Timeout
@@ -63,7 +75,7 @@ struct Packlink
       end
     end
 
-    private def headers
+    private def http_headers
       HTTP::Headers{
         "Accept"        => "application/json",
         "Content-Type"  => "application/json",

@@ -8,6 +8,7 @@ struct Packlink
     {% begin %}
       {% resources = {
            registration: {"create"},
+           auth:         {"login"},
          } %}
 
       {% for resource, methods in resources %}

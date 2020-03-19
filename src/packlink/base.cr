@@ -4,10 +4,11 @@ struct Packlink
       def self.create(
         body : NamedTuple | Hash,
         params : NamedTuple | Hash = HS2.new,
+        headers : NamedTuple | Hash = HS2.new,
         client : Client = Client.instance
       )
         path = CreatePath.new(params).to_s
-        Response.from_json(client.post(path, body))
+        Response.from_json(client.post(path, body, headers: headers))
       end
 
       struct Response
@@ -22,10 +23,12 @@ struct Packlink
     macro will_find(pattern, mapping)
       def self.find(
         params : NamedTuple | Hash = HS2.new,
+        query : NamedTuple | Hash = HS2.new,
+        headers : NamedTuple | Hash = HS2.new,
         client : Client = Client.instance
       )
         path = FindPath.new(params).to_s
-        Resource.from_json(client.get(path))
+        Resource.from_json(client.get(path, query, headers: headers))
       end
 
       struct Resource
@@ -40,10 +43,12 @@ struct Packlink
     macro will_list(pattern, mapping)
       def self.all(
         params : NamedTuple | Hash = HS2.new,
+        query : NamedTuple | Hash = HS2.new,
+        headers : NamedTuple | Hash = HS2.new,
         client : Client = Client.instance
       )
         path = AllPath.new(params).to_s
-        json = client.get(path)
+        json = client.get(path, query, headers: headers)
         List(Item).from_json(%({"items":#{json}}))
       end
 

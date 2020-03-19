@@ -9,7 +9,7 @@ describe Packlink::Registration do
     configure_test_api_key
   end
 
-  describe ".post" do
+  describe ".create" do
     it "registers a user" do
       WebMock.stub(:post, "https://apisandbox.packlink.com/v1/register")
         .to_return(body: read_fixture("registrations/post-response"))

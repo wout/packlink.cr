@@ -175,29 +175,21 @@ describe Packlink::Client do
         end
       end
 
-      pending "will use the same api key for all calls within a block" do
-        # WebMock.stub(:get, "https://api.mollie.com/v2/payments/first_payment")
-        #   .with(headers: {"Authorization" => "Bearer first_key"})
-        #   .to_return(body: read_fixture("payments/get.json"))
-        # WebMock.stub(:get, "https://api.mollie.com/v2/refunds/first_refund")
-        #   .with(headers: {"Authorization" => "Bearer first_key"})
-        #   .to_return(body: read_fixture("refunds/get.json"))
+      it "will use the same api key for all calls within a block" do
+        WebMock.stub(:post, "https://apisandbox.packlink.com/v1/register")
+          .with(headers: {"Authorization" => "first_key"})
+          .to_return(body: read_fixture("registrations/post-response"))
 
-        # WebMock.stub(:get, "https://api.mollie.com/v2/payments/another_payment")
-        #   .with(headers: {"Authorization" => "Bearer another_key"})
-        #   .to_return(body: read_fixture("payments/get.json"))
-        # WebMock.stub(:get, "https://api.mollie.com/v2/profiles/another_profile")
-        #   .with(headers: {"Authorization" => "Bearer another_key"})
-        #   .to_return(body: read_fixture("profiles/get.json"))
-
-        Packlink::Client.with_api_key("first_key") do |mollie|
-          mollie.payment.get("first_payment").should be_a(Packlink::Payment)
-          mollie.refund.get("first_refund").should be_a(Packlink::Refund)
+        Packlink::Client.with_api_key("first_key") do |packlink|
+          packlink.registration.create({email: "a@b.c"})
+            .should be_a(Packlink::Registration::Response)
+          # packlink.refund.get("first_refund").should be_a(Packlink::Refund)
         end
 
-        Packlink::Client.with_api_key("another_key") do |mollie|
-          mollie.payment.get("another_payment").should be_a(Packlink::Payment)
-          mollie.profile.get("another_profile").should be_a(Packlink::Profile)
+        Packlink::Client.with_api_key("another_key") do |packlink|
+          packlink
+          # packlink.payment.get("another_payment").should be_a(Packlink::Payment)
+          # packlink.profile.get("another_profile").should be_a(Packlink::Profile)
         end
       end
     end

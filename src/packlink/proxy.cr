@@ -7,7 +7,7 @@ struct Packlink
 
     {% begin %}
       {% resources = {
-           order: {"create"},
+           registration: {"create"},
          } %}
 
       {% for resource, methods in resources %}

@@ -1,22 +1,22 @@
 struct Packlink
   abstract struct Base
-    macro will_create(pattern, mapping)
-      def self.create(
-        body : NamedTuple | Hash = HS2.new,
+    macro will_list(pattern, mapping)
+      def self.all(
         params : NamedTuple | Hash = HS2.new,
         query : NamedTuple | Hash = HS2.new,
         headers : NamedTuple | Hash = HS2.new,
         client : Client = Client.instance
       )
-        path = CreatePath.new(params).to_s
-        CreatedResponse.from_json(client.post(path, body, query, headers))
+        path = AllPath.new(params).to_s
+        json = client.get(path, query, headers: headers)
+        List(Item).from_json(%({"items":#{json}}))
       end
 
-      struct CreatedResponse
+      struct Item
         JSON.mapping({{ mapping }})
       end
 
-      struct CreatePath < Packlink::Path
+      struct AllPath < Packlink::Path
         getter pattern = {{ pattern }}
       end
     end
@@ -41,23 +41,23 @@ struct Packlink
       end
     end
 
-    macro will_list(pattern, mapping)
-      def self.all(
+    macro will_create(pattern, mapping)
+      def self.create(
+        body : NamedTuple | Hash = HS2.new,
         params : NamedTuple | Hash = HS2.new,
         query : NamedTuple | Hash = HS2.new,
         headers : NamedTuple | Hash = HS2.new,
         client : Client = Client.instance
       )
-        path = AllPath.new(params).to_s
-        json = client.get(path, query, headers: headers)
-        List(Item).from_json(%({"items":#{json}}))
+        path = CreatePath.new(params).to_s
+        CreatedResponse.from_json(client.post(path, body, query, headers))
       end
 
-      struct Item
+      struct CreatedResponse
         JSON.mapping({{ mapping }})
       end
 
-      struct AllPath < Packlink::Path
+      struct CreatePath < Packlink::Path
         getter pattern = {{ pattern }}
       end
     end

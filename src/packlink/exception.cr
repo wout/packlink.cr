@@ -20,6 +20,8 @@ struct Packlink
 
   class RequestTimeoutException < Packlink::Exception; end
 
+  class IncompleteQueryException < Packlink::Exception; end
+
   class InvalidEnvironmentException < Packlink::Exception; end
 
   class MethodNotSupportedException < Packlink::Exception; end

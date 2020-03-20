@@ -1,4 +1,6 @@
 require "json"
+require "big"
+require "big/json"
 require "http/client"
 require "wordsmith"
 require "./packlink/aliases"

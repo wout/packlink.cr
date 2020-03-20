@@ -9,7 +9,7 @@ struct Packlink
       {% resources = {
            registration: {"create"},
            auth:         {"login"},
-           api_key:      {"verify", "renew", "valid?"},
+           token:        {"verify", "valid?", "renew"},
          } %}
 
       {% for resource, methods in resources %}

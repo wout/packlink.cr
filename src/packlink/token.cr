@@ -1,5 +1,5 @@
 struct Packlink
-  struct ApiKey < Base
+  struct Token < Base
     will_create "users/api/keys", {
       token: String,
     }

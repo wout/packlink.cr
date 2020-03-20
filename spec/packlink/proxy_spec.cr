@@ -30,7 +30,7 @@ describe Packlink::Proxy do
         estimated_delivery_volume: "1 - 10",
         ip:                        "123.123.123.123",
       })
-      response.should be_a(Packlink::Registration::Response)
+      response.should be_a(Packlink::Registration::CreatedResponse)
     end
 
     it "returns a proxy object" do
@@ -50,7 +50,7 @@ describe Packlink::Proxy do
         email:    "myaccount@packlink.es",
         password: "mastaba",
       })
-      response.should be_a(Packlink::Auth::Resource)
+      response.should be_a(Packlink::Auth::FoundResponse)
     end
 
     it "returns a proxy object" do
@@ -65,7 +65,7 @@ describe Packlink::Proxy do
         .to_return(body: read_fixture("tokens/post-response"))
 
       response = test_proxy.token.verify("currently_stored_key")
-      response.should be_a(Packlink::Token::Resource)
+      response.should be_a(Packlink::Token::FoundResponse)
     end
 
     it "verifies validity of the api key" do
@@ -81,7 +81,7 @@ describe Packlink::Proxy do
         .to_return(body: read_fixture("tokens/post-response"))
 
       response = test_proxy.token.renew("currently_stored_key")
-      response.should be_a(Packlink::Token::Response)
+      response.should be_a(Packlink::Token::CreatedResponse)
     end
 
     it "returns a proxy object" do

@@ -24,7 +24,7 @@ describe Packlink::Auth do
         platform:         "pro",
         platform_country: "gb",
       })
-      resource.should be_a(Packlink::Auth::Resource)
+      resource.should be_a(Packlink::Auth::FoundResponse)
       resource.token.should eq("44c2a45734386ca1ff9a77a6f82cd4f20962c094835f1f6d6ba8c7ef94b0a155")
     end
 
@@ -56,7 +56,7 @@ describe Packlink::Auth do
         platform:         "pro",
         platform_country: "gb",
       })
-      response.should be_a(Packlink::Auth::Response)
+      response.should be_a(Packlink::Auth::CreatedResponse)
     end
 
     it "fails if email is not provided" do

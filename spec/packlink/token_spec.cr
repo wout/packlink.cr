@@ -12,7 +12,7 @@ describe Packlink::Token do
         .to_return(status: 200, body: read_fixture("tokens/post-response"))
 
       response = Packlink::Token.verify("c80cfc01d13504e8a8cbe37ad2ea4e6f3464e388b7f56c7104724b4f5d557262")
-      response.should be_a(Packlink::Token::Resource)
+      response.should be_a(Packlink::Token::FoundResponse)
       response.token.should eq("c80cfc01d13504e8a8cbe37ad2ea4e6f3464e388b7f56c7104724b4f5d557262")
     end
   end
@@ -40,7 +40,7 @@ describe Packlink::Token do
         .to_return(status: 201, body: read_fixture("tokens/post-response"))
 
       response = Packlink::Token.renew("44c2a45734386ca1ff9a77a6f82cd4f20962c094835f1f6d6ba8c7ef94b0a155")
-      response.should be_a(Packlink::Token::Response)
+      response.should be_a(Packlink::Token::CreatedResponse)
       response.token.should eq("c80cfc01d13504e8a8cbe37ad2ea4e6f3464e388b7f56c7104724b4f5d557262")
     end
   end

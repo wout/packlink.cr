@@ -34,7 +34,7 @@ describe Packlink::Registration do
         },
         source: "https://urlwhereregistrationoffered",
       })
-      response.should be_a(Packlink::Registration::Response)
+      response.should be_a(Packlink::Registration::CreatedResponse)
       response.token.should eq("de1badc159485f880000c954ebf26795a70b5fdf6433875488358e6496c566c4")
     end
   end

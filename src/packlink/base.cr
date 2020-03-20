@@ -9,10 +9,10 @@ struct Packlink
         client : Client = Client.instance
       )
         path = CreatePath.new(params).to_s
-        Response.from_json(client.post(path, body, query, headers))
+        CreatedResponse.from_json(client.post(path, body, query, headers))
       end
 
-      struct Response
+      struct CreatedResponse
         JSON.mapping({{ mapping }})
       end
 
@@ -29,10 +29,10 @@ struct Packlink
         client : Client = Client.instance
       )
         path = FindPath.new(params).to_s
-        Resource.from_json(client.get(path, query, headers))
+        FoundResponse.from_json(client.get(path, query, headers))
       end
 
-      struct Resource
+      struct FoundResponse
         JSON.mapping({{ mapping }})
       end
 

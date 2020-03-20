@@ -218,7 +218,7 @@ describe Packlink::Client do
 
         Packlink::Client.with_api_key("first_key") do |packlink|
           packlink.registration.create({email: "a@b.c"})
-            .should be_a(Packlink::Registration::Response)
+            .should be_a(Packlink::Registration::CreatedResponse)
           # packlink.refund.get("first_refund").should be_a(Packlink::Refund)
         end
 

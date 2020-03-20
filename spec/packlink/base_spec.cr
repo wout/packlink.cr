@@ -17,7 +17,7 @@ describe Packlink::Base do
         object = Packlink::BaseObject.create(
           body: {fab: "ul.us"},
           params: {vendor: "jip", id: "janneke"})
-        object.should be_a(Packlink::BaseObject::Response)
+        object.should be_a(Packlink::BaseObject::CreatedResponse)
         object.message.should eq("Created successfully")
       end
 
@@ -70,7 +70,7 @@ describe Packlink::Base do
           .to_return(body: %({"name": "Jip", "price": 12.5}))
 
         resource = Packlink::BaseObject.find({id: "janneke"})
-        resource.should be_a(Packlink::BaseObject::Resource)
+        resource.should be_a(Packlink::BaseObject::FoundResponse)
         resource.name.should eq("Jip")
         resource.price.should eq(12.5)
       end

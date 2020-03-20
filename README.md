@@ -10,7 +10,7 @@ Add packlink as a depencency to your application's `shard.yml`:
 
 ```yaml
 dependencies:
-  mollie:
+  packlink:
     github: tilishop/packlink.cr
 ```
 

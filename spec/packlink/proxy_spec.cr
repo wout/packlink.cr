@@ -88,4 +88,39 @@ describe Packlink::Proxy do
       test_proxy.token.should be_a(Packlink::Proxy::Token)
     end
   end
+
+  describe "#service" do
+    it "proxies from" do
+      WebMock.stub(:get, "https://apisandbox.packlink.com/v1/services?from[country]=GB&from[zip]=BN2+1JJ&to[country]=BE&to[zip]=3000&packages[0][width]=30&packages[0][height]=30&packages[0][length]=30&packages[0][weight]=3")
+        .with(headers: {"Authorization" => "secret_proxy_key"})
+        .to_return(body: read_fixture("services/all-response"))
+
+      test_proxy.service
+        .from("GB", "BN2 1JJ")
+        .to("BE", 3000)
+        .package(30, 30, 30, 3).all
+    end
+
+    it "proxies to" do
+      WebMock.stub(:get, "https://apisandbox.packlink.com/v1/services?to[country]=GB&to[zip]=BN2+1JJ&from[country]=BE&from[zip]=3000&packages[0][width]=20&packages[0][height]=20&packages[0][length]=20&packages[0][weight]=2")
+        .with(headers: {"Authorization" => "secret_proxy_key"})
+        .to_return(body: read_fixture("services/all-response"))
+
+      test_proxy.service
+        .to("GB", "BN2 1JJ")
+        .from("BE", 3000)
+        .package(20, 20, 20, 2).all
+    end
+
+    it "proxies package" do
+      WebMock.stub(:get, "https://apisandbox.packlink.com/v1/services?from[country]=BE&from[zip]=1000&to[country]=GB&to[zip]=BN2+1JJ&packages[0][width]=10&packages[0][height]=10&packages[0][length]=10&packages[0][weight]=1")
+        .with(headers: {"Authorization" => "secret_proxy_key"})
+        .to_return(body: read_fixture("services/all-response"))
+
+      test_proxy.service
+        .package(10, 10, 10, 1)
+        .from("BE", 1000)
+        .to("GB", "BN2 1JJ").all
+    end
+  end
 end

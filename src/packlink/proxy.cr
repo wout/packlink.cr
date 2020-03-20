@@ -7,8 +7,9 @@ struct Packlink
 
     {% begin %}
       {% resources = {
-           registration: {"create"},
            auth:         {"login"},
+           registration: {"create"},
+           service:      {"from", "to", "package"},
            token:        {"verify", "valid?", "renew"},
          } %}
 

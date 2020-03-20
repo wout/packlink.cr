@@ -30,29 +30,32 @@ struct Packlink
 
     def self.from(
       country : String,
-      zip : Zipcode
+      zip : Zipcode,
+      client : Client = Client.instance
     )
-      Query.new.from(country, zip)
+      Query.new(client).from(country, zip)
     end
 
     def self.to(
       country : String,
-      zip : Zipcode
+      zip : Zipcode,
+      client : Client = Client.instance
     )
-      Query.new.to(country, zip)
+      Query.new(client).to(country, zip)
     end
 
     def self.package(
       width : Measurement,
       height : Measurement,
       length : Measurement,
-      weight : Measurement
+      weight : Measurement,
+      client : Client = Client.instance
     )
-      Query.new.package(width, height, length, weight)
+      Query.new(client).package(width, height, length, weight)
     end
 
     class Query
-      def initialize
+      def initialize(@client : Client = Client.instance)
         @query = Hash(String, HS2).new
         @packages = Array(HS2).new
       end
@@ -94,8 +97,8 @@ struct Packlink
         self
       end
 
-      def all(client : Client = Client.instance)
-        Packlink::Service.all(query: to_h, client: client)
+      def all(client : Client? = nil)
+        Packlink::Service.all(query: to_h, client: client || @client)
       end
 
       def to_h

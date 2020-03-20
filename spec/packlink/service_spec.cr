@@ -77,11 +77,33 @@ describe Packlink::Service do
     it "returns a query builder" do
       Packlink::Service.from("GB", "BN2 1JJ").should be_a(Packlink::Service::Query)
     end
+
+    it "accepts a client parameter" do
+      WebMock.stub(:get, "https://apisandbox.packlink.com/v1/services?from[country]=GB&from[zip]=BN2+1JJ&to[country]=BE&to[zip]=9000&packages[0][width]=15&packages[0][height]=15&packages[0][length]=15&packages[0][weight]=1.5")
+        .with(headers: {"Authorization" => "from_key"})
+        .to_return(body: read_fixture("services/all-response"))
+
+      client = Packlink::Client.new("from_key")
+      Packlink::Service
+        .from("GB", "BN2 1JJ", client: client).to("BE", 9000)
+        .package(15, 15, 15, 1.5).all
+    end
   end
 
   describe ".to" do
     it "returns a query builder" do
       Packlink::Service.to("BE", "2000").should be_a(Packlink::Service::Query)
+    end
+
+    it "accepts a client parameter" do
+      WebMock.stub(:get, "https://apisandbox.packlink.com/v1/services?to[country]=BE&to[zip]=9000&from[country]=GB&from[zip]=BN2+1JJ&packages[0][width]=20&packages[0][height]=20&packages[0][length]=20&packages[0][weight]=2")
+        .with(headers: {"Authorization" => "to_key"})
+        .to_return(body: read_fixture("services/all-response"))
+
+      client = Packlink::Client.new("to_key")
+      Packlink::Service
+        .to("BE", 9000, client: client).from("GB", "BN2 1JJ")
+        .package(20, 20, 20, 2).all
     end
   end
 
@@ -90,12 +112,30 @@ describe Packlink::Service do
       Packlink::Service.package(10, 10, 10, 1)
         .should be_a(Packlink::Service::Query)
     end
+
+    it "accepts a client parameter" do
+      WebMock.stub(:get, "https://apisandbox.packlink.com/v1/services?to[country]=BE&to[zip]=9000&from[country]=GB&from[zip]=BN2+1JJ&packages[0][width]=25&packages[0][height]=22&packages[0][length]=21&packages[0][weight]=20.1")
+        .with(headers: {"Authorization" => "package_key"})
+        .to_return(body: read_fixture("services/all-response"))
+
+      client = Packlink::Client.new("package_key")
+      Packlink::Service
+        .package(25, 22, 21, 20.1, client: client)
+        .to("BE", 9000).from("GB", "BN2 1JJ").all
+    end
   end
 end
 
 describe Packlink::Service::Query do
   before_each do
     configure_test_api_key
+  end
+
+  describe "#initialize" do
+    it "optionally accpets a client" do
+      Packlink::Service::Query.new
+      Packlink::Service::Query.new(Packlink::Client.new("init_key"))
+    end
   end
 
   describe "#from" do

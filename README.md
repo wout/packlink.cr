@@ -46,8 +46,9 @@ Packlink::Client.with_api_key("<your-api-key>") do |packlink|
     .from("GB", "BN2 1JJ").to("BE", 2000)
     .package(40, 30, 20, 1.5).all
   from_de_to_fr = packlink.shipment
-    .from("DE", 10587).to("FR", 75013)
-    .package(40, 30, 20, 3).package(10, 10, 10, 0.5).all
+    .package(40, 30, 20, 3)
+    .package(10, 10, 10, 0.5)
+    .from("DE", 10587).to("FR", 75013).all
 end
 ```
 

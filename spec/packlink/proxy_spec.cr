@@ -90,6 +90,14 @@ describe Packlink::Proxy do
   end
 
   describe "#service" do
+    it "proxies find" do
+      WebMock.stub(:get, "https://apisandbox.packlink.com/v1/services/available/20154/details")
+        .with(headers: {"Authorization" => "secret_proxy_key"})
+        .to_return(body: read_fixture("services/get-response"))
+
+      test_proxy.service.find({id: 20154})
+    end
+
     it "proxies from" do
       WebMock.stub(:get, "https://apisandbox.packlink.com/v1/services?from[country]=GB&from[zip]=BN2+1JJ&to[country]=BE&to[zip]=3000&packages[0][width]=30&packages[0][height]=30&packages[0][length]=30&packages[0][weight]=3")
         .with(headers: {"Authorization" => "secret_proxy_key"})

@@ -73,6 +73,16 @@ describe Packlink::Service do
     end
   end
 
+  describe ".find" do
+    it "fetches a given service" do
+      WebMock.stub(:get, "https://apisandbox.packlink.com/v1/services/available/20154/details")
+        .to_return(body: read_fixture("services/get-response"))
+
+      response = Packlink::Service.find({id: 20154})
+      response.should be_a(Packlink::Service::FoundResponse)
+    end
+  end
+
   describe ".from" do
     it "returns a query builder" do
       Packlink::Service.from("GB", "BN2 1JJ").should be_a(Packlink::Service::Query)

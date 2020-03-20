@@ -1,0 +1,24 @@
+{
+  "carrier_name" : "DPD",
+  "service_name" : "Classic Kleinpaket",
+  "service_logo" : "https://pro.packlink.de/private/assets/images/carriers/de/dpd_classic-kleinpaket_door-door_de.png",
+  "service_id" : "20154",
+  "enabled" : true,
+  "departure_type" : "pick-up",
+  "destination_type" : "home",
+  "service_details" : [
+    "service-card.service-details.home-delivery-1",
+    "service-card.service-details.delivery-all-day",
+    "service-card.service-details.collection-home",
+    "service-card.service-details.max-weight-3",
+    "service-card.service-details.max-length-50"
+  ],
+  "packlink_info" : [
+    "service-card.service-platform.tracking-available",
+    "service-card.service-platform.cs-available-web-9-5",
+    "service-card.service-platform.transit-time-business-days",
+    "service-card.service-platform.packaging-advise",
+    "service-card.service-platform.prohibited-list"
+  ],
+  "service_type" : "standard"
+}

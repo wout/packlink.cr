@@ -5,7 +5,7 @@ struct Packlink
     abstract def pattern
 
     def initialize(params : NamedTuple | Hash = HS2.new)
-      @params = Util.normalize_hash(params)
+      @params = Util.normalize_hash(params).transform_values(&.to_s)
     end
 
     def to_s

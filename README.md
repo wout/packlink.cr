@@ -1,8 +1,7 @@
 # Packlink Pro API client for Crystal
 
-Compare Courier Services or Send a Parcel with Packlink.
-
-This is the unofficial [Crystal](https://crystal-lang.org/) shard for Packlink.
+Compare Courier Services or Send a Parcel with Packlink. This is the unofficial
+[Crystal](https://crystal-lang.org/) shard for Packlink.
 
 ## Installation
 

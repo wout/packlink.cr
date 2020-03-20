@@ -27,6 +27,18 @@ struct Packlink
       transit_time:                   String,
       url_terms_and_conditions:       String?,
     }
+    will_find "services/available/:id/details", {
+      carrier_name:     String,
+      service_name:     String,
+      service_logo:     String,
+      service_id:       String | Int32,
+      enabled:          Bool,
+      departure_type:   String,
+      destination_type: String,
+      service_details:  Array(String),
+      packlink_info:    Array(String),
+      service_type:     String,
+    }
 
     def self.from(
       country : String,

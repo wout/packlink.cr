@@ -183,6 +183,17 @@ response = Packlink::Service
   .all
 ```
 
+Finally, you can also avoid the method chain and use a named tuple or hash:
+
+```crystal
+response = Packlink::Service.all(query: {
+  from:     {country: "DE", zip: 56457},
+  to:       {country: "BE", zip: 9000},
+  packages: {
+    "0": {width: 10, height: 10, length: 10, weight: 1},
+  },
+})
+```
 
 
 ## Contributing

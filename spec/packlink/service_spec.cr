@@ -82,12 +82,21 @@ describe Packlink::Service do
       service.should be_a(Packlink::Service::FoundResponse)
     end
 
-    it "also accepts the individual id" do
+    it "accepts the individual service_id" do
       WebMock.stub(:get, "https://apisandbox.packlink.com/v1/services/available/20155/details")
         .to_return(body: read_fixture("services/get-response"))
 
       service = Packlink::Service.find(20155)
       service.should be_a(Packlink::Service::FoundResponse)
+    end
+
+    it "accepts the individual service_id with a client" do
+      WebMock.stub(:get, "https://apisandbox.packlink.com/v1/services/available/20156/details")
+        .with(headers: {"Authorization" => "specific_key"})
+        .to_return(body: read_fixture("services/get-response"))
+
+      client = Packlink::Client.new("specific_key")
+      Packlink::Service.find(20156, client: client)
     end
   end
 
@@ -128,6 +137,12 @@ describe Packlink::Service do
   describe ".package" do
     it "returns a query builder" do
       Packlink::Service.package(10, 10, 10, 1)
+        .should be_a(Packlink::Service::Query)
+    end
+
+    it "accepts a package" do
+      package = Packlink::Package.new(10, 10, 10, 1)
+      Packlink::Service.package(package)
         .should be_a(Packlink::Service::Query)
     end
 
@@ -191,6 +206,21 @@ describe Packlink::Service::Query do
         "height" => "5",
         "length" => "5",
         "weight" => "0.5",
+      })
+    end
+
+    it "accepts a package" do
+      package = Packlink::Package.new(10, 10, 10, 1)
+      query = Packlink::Service::Query.new
+      query.from("GB", "BN2 1JJ").to("BE", 2000)
+      query.package(package)
+      hash = query.to_h
+      hash["packages"].size.should eq(1)
+      hash["packages"]["0"].should eq({
+        "width"  => "10",
+        "height" => "10",
+        "length" => "10",
+        "weight" => "1",
       })
     end
   end

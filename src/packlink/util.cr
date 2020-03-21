@@ -11,17 +11,23 @@ struct Packlink
     end
 
     def self.build_nested_query(
-      value : Array(String) | Array(Hash),
+      value : Array(A::Scalar) | Array(Hash),
       prefix : String? = nil
     )
       value.map { |v| self.build_nested_query(v, "#{prefix}[]") }.join("&")
     end
 
-    def self.build_nested_query(value : Int32 | String, prefix : String)
+    def self.build_nested_query(
+      value : A::Scalar,
+      prefix : String
+    )
       "#{prefix}=#{self.escape(value.to_s)}"
     end
 
-    def self.build_nested_query(value : Nil, prefix : String? = nil)
+    def self.build_nested_query(
+      value : Nil,
+      prefix : String? = nil
+    )
       prefix
     end
 

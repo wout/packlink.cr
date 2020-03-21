@@ -154,6 +154,7 @@ service.price.currency                      # => "EUR"
 service.transit_hours                       # => "24"
 service.available_dates["2020/03/30"].from  # => "08:00"
 service.available_dates["2020/03/30"].till  # => "18:00"
+service.available_dates["2020/03/30"].to_s  # => "08:00-18:00"
 ...
 ```
 
@@ -182,6 +183,17 @@ services = Packlink::Service
   .all
 ```
 
+Or an instance of a `Packlink::Package` object:
+
+```crystal
+package = Packlink::Package.new(40, 30, 25, 5)
+services = Packlink::Service
+  .package(package)
+  .from("GB", "BN2 1JJ")
+  .to("BE", 9000)
+  .all
+```
+
 For more clarity, or a different order, use named arguments:
 
 ```crystal
@@ -192,7 +204,8 @@ services = Packlink::Service
   .all
 ```
 
-Finally, you can also avoid the method chain and use a named tuple or hash:
+Finally, you can also avoid the method chain and use a named tuple or hash, if
+that's your thing:
 
 ```crystal
 services = Packlink::Service.all(query: {
@@ -214,6 +227,8 @@ service = Packlink::Service.find(20154)
 
 ### Get Dropoffs
 
+Gives you a list of the ten closest dropoff points.
+
 ```crystal
 dropoffs = Packlink::Dropoff.all({
   service_id: 21369,
@@ -233,6 +248,12 @@ dropoff.opening_times.monday  # => "06:00-21:00"
 dropoff.phone                 # => "07461451073"
 dropoff.zip                   # => "BN2 1EF"
 ```
+
+### Create Order
+
+Creates a new order. Each order can include several shipments.
+
+
 
 ## Contributing
 

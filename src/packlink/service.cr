@@ -40,8 +40,11 @@ struct Packlink
       service_type:     String,
     }
 
-    def self.find(id : Int32 | String)
-      find({id: id})
+    def self.find(
+      id : Int32 | String,
+      client : Client = Client.instance
+    )
+      find({id: id}, client: client)
     end
 
     def self.from(
@@ -60,20 +63,21 @@ struct Packlink
       Query.new(client).to(country, zip)
     end
 
+    def self.package(*args, client : Client = Client.instance)
+      Query.new(client).package(*args)
+    end
+
     def self.package(
-      width : A::Measurement,
-      height : A::Measurement,
-      length : A::Measurement,
-      weight : A::Measurement,
+      package : Packlink::Package,
       client : Client = Client.instance
     )
-      Query.new(client).package(width, height, length, weight)
+      Query.new(client).package(package)
     end
 
     class Query
       def initialize(@client : Client = Client.instance)
         @query = Hash(String, A::HS2).new
-        @packages = Array(A::HS2).new
+        @packages = Array(A::QueryHash).new
       end
 
       def from(
@@ -98,18 +102,12 @@ struct Packlink
         self
       end
 
-      def package(
-        width : A::Measurement,
-        height : A::Measurement,
-        length : A::Measurement,
-        weight : A::Measurement
-      )
-        @packages.push({
-          "width"  => width,
-          "height" => height,
-          "length" => length,
-          "weight" => weight,
-        }.transform_values(&.to_s))
+      def package(*args)
+        package(Packlink::Package.new(*args))
+      end
+
+      def package(package : Packlink::Package)
+        @packages.push(package.to_h.transform_values(&.to_s))
         self
       end
 

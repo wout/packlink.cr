@@ -217,8 +217,8 @@ describe Packlink::Client do
           .to_return(body: read_fixture("registrations/post-response"))
 
         Packlink::Client.with_api_key("first_key") do |packlink|
-          packlink.registration.create({email: "a@b.c"})
-            .should be_a(Packlink::Registration::CreatedResponse)
+          packlink.register.user({email: "a@b.c"})
+            .should be_a(String)
           # packlink.refund.get("first_refund").should be_a(Packlink::Refund)
         end
 

@@ -19,22 +19,22 @@ describe Packlink::Proxy do
     end
   end
 
-  describe "#registration" do
+  describe "#register" do
     it "proxies create" do
       WebMock.stub(:post, "https://apisandbox.packlink.com/v1/register")
         .with(headers: proxy_headers)
         .to_return(body: read_fixture("registrations/post-response"))
 
-      response = test_proxy.registration.create({
+      token = test_proxy.register.user({
         email:                     "myaccount@packlink.es",
         estimated_delivery_volume: "1 - 10",
         ip:                        "123.123.123.123",
       })
-      response.should be_a(Packlink::Registration::CreatedResponse)
+      token.should be_a(String)
     end
 
     it "returns a proxy object" do
-      test_proxy.registration.should be_a(Packlink::Proxy::Registration)
+      test_proxy.register.should be_a(Packlink::Proxy::Register)
     end
   end
 
@@ -46,11 +46,11 @@ describe Packlink::Proxy do
         })
         .to_return(body: read_fixture("logins/get-response"))
 
-      response = test_proxy.auth.login({
+      token = test_proxy.auth.login({
         email:    "myaccount@packlink.es",
         password: "mastaba",
       })
-      response.should be_a(Packlink::Auth::FoundResponse)
+      token.should be_a(String)
     end
 
     it "returns a proxy object" do
@@ -64,8 +64,8 @@ describe Packlink::Proxy do
         .with(headers: {"Authorization" => "currently_stored_key"})
         .to_return(body: read_fixture("users/post-response"))
 
-      response = test_proxy.user.verify("currently_stored_key")
-      response.should be_a(Packlink::User::FoundResponse)
+      token = test_proxy.user.verify("currently_stored_key")
+      token.should be_a(String)
     end
 
     it "verifies validity of the api key" do
@@ -80,8 +80,8 @@ describe Packlink::Proxy do
         .with(headers: {"Authorization" => "currently_stored_key"})
         .to_return(body: read_fixture("users/post-response"))
 
-      response = test_proxy.user.activate("currently_stored_key")
-      response.should be_a(Packlink::User::CreatedResponse)
+      token = test_proxy.user.activate("currently_stored_key")
+      token.should be_a(String)
     end
 
     it "returns a proxy object" do

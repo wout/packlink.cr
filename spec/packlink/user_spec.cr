@@ -19,9 +19,8 @@ describe Packlink::User do
         .with(headers: {"Authorization" => test_token})
         .to_return(status: 200, body: read_fixture("users/post-response"))
 
-      response = Packlink::User.verify(test_token)
-      response.should be_a(Packlink::User::FoundResponse)
-      response.token.should eq(test_token)
+      token = Packlink::User.verify(test_token)
+      token.should eq(test_token)
     end
 
     it "raises a 404 if the user is nog activated yet" do
@@ -61,9 +60,8 @@ describe Packlink::User do
         .with(headers: {"Authorization" => test_token_other})
         .to_return(status: 201, body: read_fixture("users/post-response"))
 
-      response = Packlink::User.activate(test_token_other)
-      response.should be_a(Packlink::User::CreatedResponse)
-      response.token.should eq(test_token)
+      token = Packlink::User.activate(test_token_other)
+      token.should eq(test_token)
     end
 
     it "can not activate the same user twice" do

@@ -19,10 +19,11 @@ struct Packlink
       end
 
       header = encoded_auth_header(email.to_s, password.to_s)
-      find(
+      response = find(
         query: credentials,
         headers: {"Authorization" => header},
         client: client)
+      response.token
     end
 
     def self.reset_password(

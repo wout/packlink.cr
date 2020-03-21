@@ -8,7 +8,7 @@ struct Packlink
     }
 
     def self.verify(key : String, client : Client = Client.instance)
-      find(headers: {"Authorization" => key}, client: client)
+      find(headers: {"Authorization" => key}, client: client).token
     end
 
     def self.active?(key : String, client : Client = Client.instance)
@@ -18,7 +18,7 @@ struct Packlink
     end
 
     def self.activate(key : String, client : Client = Client.instance)
-      create(headers: {"Authorization" => key}, client: client)
+      create(headers: {"Authorization" => key}, client: client).token
     end
   end
 end

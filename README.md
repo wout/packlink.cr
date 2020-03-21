@@ -57,7 +57,7 @@ end
 Register a new user:
 
 ```crystal
-response = Packlink::Registration.create({
+temporary_token = Packlink::Register.user({
   email:                     "myaccount@packlink.com",
   estimated_delivery_volume: "1 - 10",
   ip:                        "123.123.123.123",
@@ -78,8 +78,7 @@ response = Packlink::Registration.create({
   source: "https://urlwhereregistrationoffered",
 })
 
-# get the temporary token
-token = response.token # => e0f90eacfa678e20051c3a5bc2bcc05a...
+puts temporary_token # => e0f90eacfa678e20051c3a5bc2bcc05a...
 ```
 
 *__Note__: User registration is only required if you are creating accounts for
@@ -99,8 +98,8 @@ If the user is not active, the permanent api token can be obtained as follows:
 
 ```crystal
 unless Packlink::User.active?("e0f90eac...")
-  response = Packlink::User.activate("e0f90eac...")
-  permanent_token = response.token # => fa678e20...
+  permanent_token = Packlink::User.activate("e0f90eac...")
+  puts permanent_token # => fa678e20...
 end
 ```
 
@@ -110,13 +109,13 @@ If a given user already has a Packlink Pro account, the API key can be retreived
 by logging in:
 
 ```crystal
-response = Packlink::Auth.login({
+token = Packlink::Auth.login({
   email:            "myaccount@packlink.com",
   password:         "myPassword",
   platform:         "pro",
   platform_country: "gb",
 })
-token = response.token # => fa678e20...
+puts token # => fa678e20...
 ```
 
 ### Password reset

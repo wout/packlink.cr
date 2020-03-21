@@ -7,10 +7,10 @@ struct Packlink
 
     {% begin %}
       {% resources = {
-           auth:         {"login"},
-           registration: {"create"},
-           service:      {"find", "from", "to", "package"},
-           user:         {"verify", "active?", "activate"},
+           auth:     {"login"},
+           register: {"user"},
+           service:  {"find", "from", "to", "package"},
+           user:     {"verify", "active?", "activate"},
          } %}
 
       {% for resource, methods in resources %}

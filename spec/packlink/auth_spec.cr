@@ -18,14 +18,13 @@ describe Packlink::Auth do
         .with(headers: headers)
         .to_return(body: read_fixture("logins/get-response"))
 
-      response = Packlink::Auth.login({
+      token = Packlink::Auth.login({
         email:            "myaccount@packlink.es",
         password:         "myPassword",
         platform:         "pro",
         platform_country: "gb",
       })
-      response.should be_a(Packlink::Auth::FoundResponse)
-      response.token.should eq("44c2a45734386ca1ff9a77a6f82cd4f20962c094835f1f6d6ba8c7ef94b0a155")
+      token.should eq("44c2a45734386ca1ff9a77a6f82cd4f20962c094835f1f6d6ba8c7ef94b0a155")
     end
 
     it "accepts a client to perform the request" do

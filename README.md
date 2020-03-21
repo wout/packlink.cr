@@ -139,13 +139,13 @@ exists, an email will arrive. If not, nothing will happen.*
 You need a source (`from`), destination (`to`) and at least one `package`:
 
 ```crystal
-response = Packlink::Service
+services = Packlink::Service
   .from("GB", "BN2 1JJ")
   .to("BE", 9000)
   .package(15, 15, 15, 1.5)
   .all
 
-service = response.items.first
+service = services.first
 
 service.id                                  # => 20154
 service.carrier_name                        # => "DPD"
@@ -164,7 +164,7 @@ service.available_dates["2020/03/30"].till  # => "18:00"
 Order of the method chain is not important:
 
 ```crystal
-response = Packlink::Service
+services = Packlink::Service
   .package(15, 15, 15, 1.5)
   .from("GB", "BN2 1JJ")
   .to("BE", 9000)
@@ -174,7 +174,7 @@ response = Packlink::Service
 You can also add multiple packages (there should be at lease one, though):
 
 ```crystal
-response = Packlink::Service
+services = Packlink::Service
   .package(40, 30, 25, 5)
   .package(15, 15, 15, 1.5)
   .package(20, 15, 10, 3)
@@ -186,7 +186,7 @@ response = Packlink::Service
 For more clarity, or a different order, use named arguments:
 
 ```crystal
-response = Packlink::Service
+services = Packlink::Service
   .package(width: 15, height: 15, length: 15, weight: 1.5)
   .from(country: "GB", zip: "BN2 1JJ")
   .to(country: "BE", zip: 9000)
@@ -196,13 +196,21 @@ response = Packlink::Service
 Finally, you can also avoid the method chain and use a named tuple or hash:
 
 ```crystal
-response = Packlink::Service.all(query: {
+services = Packlink::Service.all(query: {
   from:     {country: "DE", zip: 56457},
   to:       {country: "BE", zip: 9000},
   packages: {
     "0": {width: 10, height: 10, length: 10, weight: 1},
   },
 })
+```
+
+### Get available services details
+
+If you know the id of a service, its details can be fetched as follows:
+
+```crystal
+service = Packlink::Service.find(20154)
 ```
 
 

@@ -40,6 +40,10 @@ struct Packlink
       service_type:     String,
     }
 
+    def self.find(id : Int32 | String)
+      find({id: id})
+    end
+
     def self.from(
       country : String,
       zip : Zipcode,

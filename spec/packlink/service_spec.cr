@@ -14,62 +14,62 @@ describe Packlink::Service do
       WebMock.stub(:get, "https://apisandbox.packlink.com/v1/services?from[country]=DE&from[zip]=56457&to[country]=DE&to[zip]=56457&packages[0][width]=10&packages[0][height]=10&packages[0][length]=10&packages[0][weight]=1")
         .to_return(body: read_fixture("services/all-response"))
 
-      response = Packlink::Service.all(query: {
+      services = Packlink::Service.all(query: {
         from:     {country: "DE", zip: 56457},
         to:       {country: "DE", zip: 56457},
         packages: {
           "0": {width: 10, height: 10, length: 10, weight: 1},
         },
       })
-      response.should be_a(Packlink::List(Packlink::Service::Item))
-      item = response.items.first
-      item.available_dates.should be_a(Hash(String, Packlink::Service::Hours))
-      item.available_dates.size.should eq(12)
-      item.available_dates["2020/03/30"].should be_a(Packlink::Service::Hours)
-      item.available_dates["2020/03/30"].from.should eq("08:00")
-      item.available_dates["2020/03/30"].till.should eq("18:00")
-      item.available_dates["2020/03/30"].to_s.should eq("08:00-18:00")
-      item.available_dates["2020/03/30"].value.should eq("[08:00 , 18:00]")
-      item.base_price.should eq(3.94)
-      item.carrier_name.should eq("DPD")
-      item.cash_on_delivery.apply_percentage_cash_on_delivery.should eq(0)
-      item.cash_on_delivery.max_cash_on_delivery.should eq(0)
-      item.cash_on_delivery.min_cash_on_delivery.should eq(0)
-      item.cash_on_delivery.offered.should be_false
-      item.cash_on_delivery.should be_a(Packlink::Service::CashOnDelivery)
-      item.category.should eq("standard")
-      item.country.should eq("DE")
-      item.currency.should eq("EUR")
-      item.customs_required.should be_false
-      item.delivery_to_parcelshop.should be_false
-      item.dropoff.should be_false
-      item.first_estimated_delivery_date.should eq("2020/03/24")
-      item.has_adult_signature.should be_false
-      item.has_print_in_store.should be_false
-      item.has_proof_of_delivery.should be_false
-      item.id.should eq(20154)
-      item.insurance.should be_a(Packlink::Service::Insurance)
-      item.insurance.additional_insurance.should be_true
-      item.insurance.apply_percentage_aditional_insurance.should eq(2.0)
-      item.insurance.base_insurance.should eq(520.0)
-      item.labels_required.should be_true
-      item.logo_id.should eq("dpd")
-      # item.max_dimensions_message.should be_nil => string or int?
-      item.name.should eq("Classic Kleinpaket")
-      item.price.should be_a(Packlink::Service::Price)
-      item.price.base_price.should eq(BigDecimal.new("3.9399999999999999"))
-      item.price.currency.should eq("EUR")
-      item.price.tax_price.should eq(0.0)
-      item.price.total_price.should eq(BigDecimal.new("3.9399999999999999"))
-      item.service_info.first.icon.should eq("printer")
-      item.service_info.first.text.should eq("service-card.service-info.printer")
-      item.service_info.should be_a(Array(Packlink::Service::Info))
-      item.time_left_first_available_date.should be_a(Packlink::Service::TimeLeftFirstAvailableDate)
-      item.time_left_first_available_date.time_value.should eq(2)
-      item.time_left_first_available_date.time_unit.should eq("DAYS")
-      item.transit_hours.should eq("24")
-      item.transit_time.should eq("1 DAYS")
-      item.url_terms_and_conditions.should eq("https://www.dpd.com/de/home/siteutilities/agb")
+      services.should be_a(Packlink::List(Packlink::Service::Item))
+      service = services.first
+      service.available_dates.should be_a(Hash(String, Packlink::Service::Hours))
+      service.available_dates.size.should eq(12)
+      service.available_dates["2020/03/30"].should be_a(Packlink::Service::Hours)
+      service.available_dates["2020/03/30"].from.should eq("08:00")
+      service.available_dates["2020/03/30"].till.should eq("18:00")
+      service.available_dates["2020/03/30"].to_s.should eq("08:00-18:00")
+      service.available_dates["2020/03/30"].value.should eq("[08:00 , 18:00]")
+      service.base_price.should eq(3.94)
+      service.carrier_name.should eq("DPD")
+      service.cash_on_delivery.apply_percentage_cash_on_delivery.should eq(0)
+      service.cash_on_delivery.max_cash_on_delivery.should eq(0)
+      service.cash_on_delivery.min_cash_on_delivery.should eq(0)
+      service.cash_on_delivery.offered.should be_false
+      service.cash_on_delivery.should be_a(Packlink::Service::CashOnDelivery)
+      service.category.should eq("standard")
+      service.country.should eq("DE")
+      service.currency.should eq("EUR")
+      service.customs_required.should be_false
+      service.delivery_to_parcelshop.should be_false
+      service.dropoff.should be_false
+      service.first_estimated_delivery_date.should eq("2020/03/24")
+      service.has_adult_signature.should be_false
+      service.has_print_in_store.should be_false
+      service.has_proof_of_delivery.should be_false
+      service.id.should eq(20154)
+      service.insurance.should be_a(Packlink::Service::Insurance)
+      service.insurance.additional_insurance.should be_true
+      service.insurance.apply_percentage_aditional_insurance.should eq(2.0)
+      service.insurance.base_insurance.should eq(520.0)
+      service.labels_required.should be_true
+      service.logo_id.should eq("dpd")
+      # service.max_dimensions_message.should be_nil => string or int?
+      service.name.should eq("Classic Kleinpaket")
+      service.price.should be_a(Packlink::Service::Price)
+      service.price.base_price.should eq(BigDecimal.new("3.9399999999999999"))
+      service.price.currency.should eq("EUR")
+      service.price.tax_price.should eq(0.0)
+      service.price.total_price.should eq(BigDecimal.new("3.9399999999999999"))
+      service.service_info.first.icon.should eq("printer")
+      service.service_info.first.text.should eq("service-card.service-info.printer")
+      service.service_info.should be_a(Array(Packlink::Service::Info))
+      service.time_left_first_available_date.should be_a(Packlink::Service::TimeLeftFirstAvailableDate)
+      service.time_left_first_available_date.time_value.should eq(2)
+      service.time_left_first_available_date.time_unit.should eq("DAYS")
+      service.transit_hours.should eq("24")
+      service.transit_time.should eq("1 DAYS")
+      service.url_terms_and_conditions.should eq("https://www.dpd.com/de/home/siteutilities/agb")
     end
   end
 
@@ -78,8 +78,16 @@ describe Packlink::Service do
       WebMock.stub(:get, "https://apisandbox.packlink.com/v1/services/available/20154/details")
         .to_return(body: read_fixture("services/get-response"))
 
-      response = Packlink::Service.find({id: 20154})
-      response.should be_a(Packlink::Service::FoundResponse)
+      service = Packlink::Service.find({id: 20154})
+      service.should be_a(Packlink::Service::FoundResponse)
+    end
+
+    it "also accepts the individual id" do
+      WebMock.stub(:get, "https://apisandbox.packlink.com/v1/services/available/20155/details")
+        .to_return(body: read_fixture("services/get-response"))
+
+      service = Packlink::Service.find(20155)
+      service.should be_a(Packlink::Service::FoundResponse)
     end
   end
 

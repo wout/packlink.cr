@@ -158,7 +158,7 @@ service.available_dates["2020/03/30"].till  # => "18:00"
 ...
 ```
 
-*__Note:__ For a full list if available field, check the
+*__Note:__ For a full list if available fields, check the
 [services spec fixture](https://github.com/tilishop/packlink.cr/blob/master/spec/fixtures/services/all-response.json).* 
 
 Order of the method chain is not important:
@@ -180,6 +180,16 @@ response = Packlink::Service
   .package(20, 15, 10, 3)
   .from("GB", "BN2 1JJ")
   .to("BE", 9000)
+  .all
+```
+
+For more clarity, or a different order, use named arguments:
+
+```crystal
+response = Packlink::Service
+  .package(width: 15, height: 15, length: 15, weight: 1.5)
+  .from(country: "GB", zip: "BN2 1JJ")
+  .to(country: "BE", zip: 9000)
   .all
 ```
 

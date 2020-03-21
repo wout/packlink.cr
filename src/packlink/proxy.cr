@@ -10,7 +10,7 @@ struct Packlink
            auth:         {"login"},
            registration: {"create"},
            service:      {"find", "from", "to", "package"},
-           token:        {"verify", "valid?", "renew"},
+           user:         {"verify", "active?", "activate"},
          } %}
 
       {% for resource, methods in resources %}

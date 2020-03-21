@@ -58,34 +58,34 @@ describe Packlink::Proxy do
     end
   end
 
-  describe "#token" do
+  describe "#user" do
     it "proxies verify" do
       WebMock.stub(:get, "https://apisandbox.packlink.com/v1/users/api/keys")
         .with(headers: {"Authorization" => "currently_stored_key"})
-        .to_return(body: read_fixture("tokens/post-response"))
+        .to_return(body: read_fixture("users/post-response"))
 
-      response = test_proxy.token.verify("currently_stored_key")
-      response.should be_a(Packlink::Token::FoundResponse)
+      response = test_proxy.user.verify("currently_stored_key")
+      response.should be_a(Packlink::User::FoundResponse)
     end
 
     it "verifies validity of the api key" do
       WebMock.stub(:get, "https://apisandbox.packlink.com/v1/users/api/keys")
-        .to_return(body: read_fixture("tokens/post-response"))
+        .to_return(body: read_fixture("users/post-response"))
 
-      test_proxy.token.valid?("my_current_key").should be_a(Bool)
+      test_proxy.user.active?("my_current_key").should be_a(Bool)
     end
 
-    it "proxies renew" do
+    it "proxies activate" do
       WebMock.stub(:post, "https://apisandbox.packlink.com/v1/users/api/keys")
         .with(headers: {"Authorization" => "currently_stored_key"})
-        .to_return(body: read_fixture("tokens/post-response"))
+        .to_return(body: read_fixture("users/post-response"))
 
-      response = test_proxy.token.renew("currently_stored_key")
-      response.should be_a(Packlink::Token::CreatedResponse)
+      response = test_proxy.user.activate("currently_stored_key")
+      response.should be_a(Packlink::User::CreatedResponse)
     end
 
     it "returns a proxy object" do
-      test_proxy.token.should be_a(Packlink::Proxy::Token)
+      test_proxy.user.should be_a(Packlink::Proxy::User)
     end
   end
 

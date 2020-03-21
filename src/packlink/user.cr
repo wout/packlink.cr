@@ -1,5 +1,5 @@
 struct Packlink
-  struct Token < Base
+  struct User < Base
     will_create "users/api/keys", {
       token: String,
     }
@@ -11,11 +11,13 @@ struct Packlink
       find(headers: {"Authorization" => key}, client: client)
     end
 
-    def self.valid?(key : String, client : Client = Client.instance)
-      verify(key, client).token == key
+    def self.active?(key : String, client : Client = Client.instance)
+      !!verify(key, client)
+    rescue e : Packlink::ResourceNotFoundException
+      false
     end
 
-    def self.renew(key : String, client : Client = Client.instance)
+    def self.activate(key : String, client : Client = Client.instance)
       create(headers: {"Authorization" => key}, client: client)
     end
   end

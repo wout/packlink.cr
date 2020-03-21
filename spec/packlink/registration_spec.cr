@@ -37,5 +37,16 @@ describe Packlink::Registration do
       response.should be_a(Packlink::Registration::CreatedResponse)
       response.token.should eq("de1badc159485f880000c954ebf26795a70b5fdf6433875488358e6496c566c4")
     end
+
+    it "can not register a user twice" do
+      WebMock.stub(:post, "https://apisandbox.packlink.com/v1/register")
+        .to_return(status: 400, body: read_fixture("registrations/post-400"))
+
+      expect_raises(Packlink::RequestException) do
+        Packlink::Registration.create({
+          email: "myaccount@packlink.es",
+        })
+      end
+    end
   end
 end

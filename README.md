@@ -212,6 +212,27 @@ If you know the id of a service, its details can be fetched as follows:
 service = Packlink::Service.find(20154)
 ```
 
+### Get Dropoffs
+
+```crystal
+dropoffs = Packlink::Dropoff.all({
+  service_id: 21369,
+  country:    "GB",
+  zip:        "BN2 1JJ",
+})
+
+dropoff = dropoffs.first
+
+dropoff.address               # => "52 St. George's Road"
+dropoff.city                  # => "Brighton"
+dropoff.commerce_name         # => "St. Georges News"
+dropoff.id                    # => "S16271"
+dropoff.lat                   # => 50.817563999999997
+dropoff.long                  # => -0.118057
+dropoff.opening_times.monday  # => "06:00-21:00"
+dropoff.phone                 # => "07461451073"
+dropoff.zip                   # => "BN2 1EF"
+```
 
 ## Contributing
 

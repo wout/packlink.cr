@@ -1,0 +1,242 @@
+[
+  {
+    "commerce_name" : "St. Georges News",
+    "city" : "Brighton",
+    "address" : "52 St. George's Road",
+    "opening_times" : {
+      "opening_times" : {
+        "sunday" : "06:00-21:00",
+        "saturday" : "06:00-21:00",
+        "tuesday" : "06:00-21:00",
+        "wednesday" : "06:00-21:00",
+        "thursday" : "06:00-21:00",
+        "friday" : "06:00-21:00",
+        "monday" : "06:00-21:00"
+      }
+    },
+    "zip" : "BN2 1EF",
+    "country" : null,
+    "long" : -0.118057,
+    "lat" : 50.817563999999997,
+    "phone" : "07461451073",
+    "state" : null,
+    "type" : "",
+    "id" : "S16271"
+  },
+  {
+    "commerce_name" : "Down Stores",
+    "city" : "Brighton",
+    "address" : "58 Down Terrace",
+    "opening_times" : {
+      "opening_times" : {
+        "sunday" : "09:30-17:30",
+        "saturday" : "07:30-19:30",
+        "tuesday" : "07:30-19:30",
+        "wednesday" : "07:30-19:30",
+        "thursday" : "07:30-19:30",
+        "friday" : "07:30-19:30",
+        "monday" : "07:30-19:30"
+      }
+    },
+    "zip" : "BN2 9ZH",
+    "country" : null,
+    "long" : -0.120962,
+    "lat" : 50.828349000000003,
+    "phone" : "01273915060",
+    "state" : null,
+    "type" : "",
+    "id" : "S15076"
+  },
+  {
+    "commerce_name" : "Boss Co News",
+    "city" : "Brighton",
+    "address" : "26 Richmond Place",
+    "opening_times" : {
+      "opening_times" : {
+        "sunday" : "07:00-22:00",
+        "saturday" : "07:00-22:00",
+        "tuesday" : "07:00-22:00",
+        "wednesday" : "07:00-22:00",
+        "thursday" : "07:00-22:00",
+        "friday" : "07:00-22:00",
+        "monday" : "07:00-22:00"
+      }
+    },
+    "zip" : "BN2 9NA",
+    "country" : null,
+    "long" : -0.134385,
+    "lat" : 50.827410999999998,
+    "phone" : "01273600628",
+    "state" : null,
+    "type" : "",
+    "id" : "S15618"
+  },
+  {
+    "commerce_name" : "Premier",
+    "city" : "Whitehawk",
+    "address" : "8 The Broadway, Whitehawk Road",
+    "opening_times" : {
+      "opening_times" : {
+        "sunday" : "06:00-21:00",
+        "saturday" : "06:00-21:00",
+        "tuesday" : "06:00-21:00",
+        "wednesday" : "06:00-21:00",
+        "thursday" : "06:00-21:00",
+        "friday" : "06:00-21:00",
+        "monday" : "06:00-21:00"
+      }
+    },
+    "zip" : "BN2 5NF",
+    "country" : null,
+    "long" : -0.10520699999999999,
+    "lat" : 50.819544,
+    "phone" : "01273-383-854",
+    "state" : null,
+    "type" : "",
+    "id" : "S07076"
+  },
+  {
+    "commerce_name" : "Co-Op",
+    "city" : "Hove",
+    "address" : "130 Western Road",
+    "opening_times" : {
+      "opening_times" : {
+        "sunday" : "07:00-23:00",
+        "saturday" : "07:00-23:00",
+        "tuesday" : "07:00-23:00",
+        "wednesday" : "07:00-23:00",
+        "thursday" : "07:00-23:00",
+        "friday" : "07:00-23:00",
+        "monday" : "07:00-23:00"
+      }
+    },
+    "zip" : "BN3 1DA",
+    "country" : null,
+    "long" : -0.15602199999999999,
+    "lat" : 50.825498000000003,
+    "phone" : "01273 732149",
+    "state" : null,
+    "type" : "",
+    "id" : "S34395"
+  },
+  {
+    "commerce_name" : "Marvans News",
+    "city" : "Preston",
+    "address" : "84 Beaconsfield Road",
+    "opening_times" : {
+      "opening_times" : {
+        "sunday" : "06:00-22:00",
+        "saturday" : "06:00-22:00",
+        "tuesday" : "06:00-22:00",
+        "wednesday" : "06:00-22:00",
+        "thursday" : "06:00-22:00",
+        "friday" : "06:00-22:00",
+        "monday" : "06:00-22:00"
+      }
+    },
+    "zip" : "BN1 6DD",
+    "country" : null,
+    "long" : -0.14035600000000001,
+    "lat" : 50.837426999999998,
+    "phone" : "01273389516",
+    "state" : null,
+    "type" : "",
+    "id" : "S29420"
+  },
+  {
+    "commerce_name" : "Coombe Road Convenience Store",
+    "city" : "Brighton",
+    "address" : "17 Coombe Rd",
+    "opening_times" : {
+      "opening_times" : {
+        "sunday" : "06:00-20:30",
+        "saturday" : "06:00-20:30",
+        "tuesday" : "06:00-20:30",
+        "wednesday" : "06:00-20:30",
+        "thursday" : "06:00-20:30",
+        "friday" : "06:00-20:30",
+        "monday" : "06:00-20:30"
+      }
+    },
+    "zip" : "BN2 4EB",
+    "country" : null,
+    "long" : -0.122281,
+    "lat" : 50.839852999999998,
+    "phone" : "01273278545",
+    "state" : null,
+    "type" : "",
+    "id" : "S11199"
+  },
+  {
+    "commerce_name" : "Ovingdean Village Store",
+    "city" : "Ovingdean",
+    "address" : "118B Longhill Road",
+    "opening_times" : {
+      "opening_times" : {
+        "sunday" : "06:00-13:00",
+        "saturday" : "05:30-18:30",
+        "tuesday" : "05:30-18:30",
+        "wednesday" : "05:30-18:30",
+        "thursday" : "05:30-18:30",
+        "friday" : "05:30-18:30",
+        "monday" : "05:30-18:30"
+      }
+    },
+    "zip" : "BN2 7BD",
+    "country" : null,
+    "long" : -0.073273000000000005,
+    "lat" : 50.818040000000003,
+    "phone" : "01273302176",
+    "state" : null,
+    "type" : "",
+    "id" : "S15373"
+  },
+  {
+    "commerce_name" : "Wilmington Convenience Store",
+    "city" : "Brighton",
+    "address" : "4 Wilmington Parade",
+    "opening_times" : {
+      "opening_times" : {
+        "sunday" : "06:00-22:00",
+        "saturday" : "06:00-22:00",
+        "tuesday" : "06:00-22:00",
+        "wednesday" : "06:00-22:00",
+        "thursday" : "06:00-22:00",
+        "friday" : "06:00-22:00",
+        "monday" : "06:00-22:00"
+      }
+    },
+    "zip" : "BN1 8JJ",
+    "country" : null,
+    "long" : -0.14130000000000001,
+    "lat" : 50.860143999999998,
+    "phone" : "01273 549000",
+    "state" : null,
+    "type" : "",
+    "id" : "S29746"
+  },
+  {
+    "commerce_name" : "Woodland Newsagent",
+    "city" : "Hove",
+    "address" : "5 Woodland Parade",
+    "opening_times" : {
+      "opening_times" : {
+        "sunday" : "07:00-18:00",
+        "saturday" : "06:00-19:30",
+        "tuesday" : "06:00-19:00",
+        "wednesday" : "06:00-19:00",
+        "thursday" : "06:00-19:00",
+        "friday" : "06:00-19:00",
+        "monday" : "06:00-19:00"
+      }
+    },
+    "zip" : "BN3 6DR",
+    "country" : null,
+    "long" : -0.17255699999999999,
+    "lat" : 50.849429000000001,
+    "phone" : "01273-880707",
+    "state" : null,
+    "type" : "",
+    "id" : "S29581"
+  }
+]

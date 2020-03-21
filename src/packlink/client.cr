@@ -15,8 +15,8 @@ struct Packlink
 
     def get(
       path : String,
-      query : Hash | NamedTuple = HS2.new,
-      headers : Hash | NamedTuple = HS2.new
+      query : Hash | NamedTuple = A::HS2.new,
+      headers : Hash | NamedTuple = A::HS2.new
     )
       perform_http_call("GET", path, query: query, headers: headers)
     end
@@ -24,8 +24,8 @@ struct Packlink
     def post(
       path : String,
       body : Hash | NamedTuple,
-      query : Hash | NamedTuple = HS2.new,
-      headers : Hash | NamedTuple = HS2.new
+      query : Hash | NamedTuple = A::HS2.new,
+      headers : Hash | NamedTuple = A::HS2.new
     )
       perform_http_call("POST", path, body: body, query: query, headers: headers)
     end
@@ -33,9 +33,9 @@ struct Packlink
     def perform_http_call(
       method : String,
       path : String,
-      body : Hash | NamedTuple = HS2.new,
-      query : Hash | NamedTuple = HS2.new,
-      headers : Hash | NamedTuple = HS2.new
+      body : Hash | NamedTuple = A::HS2.new,
+      query : Hash | NamedTuple = A::HS2.new,
+      headers : Hash | NamedTuple = A::HS2.new
     )
       unless METHODS.includes?(method)
         raise MethodNotSupportedException.new(

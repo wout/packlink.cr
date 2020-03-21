@@ -5,7 +5,7 @@ struct Packlink
     }
 
     def self.user(
-      body : NamedTuple | Hash = HS2.new,
+      body : NamedTuple | Hash = A::HS2.new,
       client : Client = Client.instance
     )
       create(body, client: client).token

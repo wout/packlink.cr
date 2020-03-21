@@ -1,10 +1,10 @@
 struct Packlink
   abstract struct Path
-    getter params : HS2
+    getter params : A::HS2
 
     abstract def pattern
 
-    def initialize(params : NamedTuple | Hash = HS2.new)
+    def initialize(params : NamedTuple | Hash = A::HS2.new)
       @params = Util.normalize_hash(params).transform_values(&.to_s)
     end
 

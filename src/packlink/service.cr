@@ -46,7 +46,7 @@ struct Packlink
 
     def self.from(
       country : String,
-      zip : Zipcode,
+      zip : A::Zipcode,
       client : Client = Client.instance
     )
       Query.new(client).from(country, zip)
@@ -54,17 +54,17 @@ struct Packlink
 
     def self.to(
       country : String,
-      zip : Zipcode,
+      zip : A::Zipcode,
       client : Client = Client.instance
     )
       Query.new(client).to(country, zip)
     end
 
     def self.package(
-      width : Measurement,
-      height : Measurement,
-      length : Measurement,
-      weight : Measurement,
+      width : A::Measurement,
+      height : A::Measurement,
+      length : A::Measurement,
+      weight : A::Measurement,
       client : Client = Client.instance
     )
       Query.new(client).package(width, height, length, weight)
@@ -72,13 +72,13 @@ struct Packlink
 
     class Query
       def initialize(@client : Client = Client.instance)
-        @query = Hash(String, HS2).new
-        @packages = Array(HS2).new
+        @query = Hash(String, A::HS2).new
+        @packages = Array(A::HS2).new
       end
 
       def from(
         country : String,
-        zip : Zipcode
+        zip : A::Zipcode
       )
         @query["from"] = {
           "country" => country,
@@ -89,7 +89,7 @@ struct Packlink
 
       def to(
         country : String,
-        zip : Zipcode
+        zip : A::Zipcode
       )
         @query["to"] = {
           "country" => country,
@@ -99,10 +99,10 @@ struct Packlink
       end
 
       def package(
-        width : Measurement,
-        height : Measurement,
-        length : Measurement,
-        weight : Measurement
+        width : A::Measurement,
+        height : A::Measurement,
+        length : A::Measurement,
+        weight : A::Measurement
       )
         @packages.push({
           "width"  => width,

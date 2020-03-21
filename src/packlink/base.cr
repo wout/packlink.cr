@@ -2,14 +2,18 @@ struct Packlink
   abstract struct Base
     macro will_list(pattern, mapping)
       def self.all(
-        params : NamedTuple | Hash = HS2.new,
-        query : NamedTuple | Hash = HS2.new,
-        headers : NamedTuple | Hash = HS2.new,
+        params : NamedTuple | Hash = A::HS2.new,
+        query : NamedTuple | Hash = A::HS2.new,
+        headers : NamedTuple | Hash = A::HS2.new,
         client : Client = Client.instance
       )
         path = AllPath.new(params).to_s
         json = client.get(path, query, headers: headers)
-        List(Item).from_json(%({"items":#{json}}))
+        List(Item).from_json(%({
+          "items":#{json},
+          "query":#{query.to_json},
+          "params":#{params.to_json}
+        }))
       end
 
       struct Item
@@ -23,9 +27,9 @@ struct Packlink
 
     macro will_find(pattern, mapping)
       def self.find(
-        params : NamedTuple | Hash = HS2.new,
-        query : NamedTuple | Hash = HS2.new,
-        headers : NamedTuple | Hash = HS2.new,
+        params : NamedTuple | Hash = A::HS2.new,
+        query : NamedTuple | Hash = A::HS2.new,
+        headers : NamedTuple | Hash = A::HS2.new,
         client : Client = Client.instance
       )
         path = FindPath.new(params).to_s
@@ -43,10 +47,10 @@ struct Packlink
 
     macro will_create(pattern, mapping)
       def self.create(
-        body : NamedTuple | Hash = HS2.new,
-        params : NamedTuple | Hash = HS2.new,
-        query : NamedTuple | Hash = HS2.new,
-        headers : NamedTuple | Hash = HS2.new,
+        body : NamedTuple | Hash = A::HS2.new,
+        params : NamedTuple | Hash = A::HS2.new,
+        query : NamedTuple | Hash = A::HS2.new,
+        headers : NamedTuple | Hash = A::HS2.new,
         client : Client = Client.instance
       )
         path = CreatePath.new(params).to_s

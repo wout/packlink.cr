@@ -124,6 +124,24 @@ describe Packlink::Base do
         Packlink::BaseObject.all(headers: headers)
       end
 
+      it "stores the original uri parameters in the list object" do
+        WebMock.stub(:get, "https://apisandbox.packlink.com/v1/base/object")
+          .to_return(body: %([]))
+
+        params = {some: "param", id: 123}
+        list = Packlink::BaseObject.all(params: params)
+        list.params.should eq(Packlink::Util.normalize_hash(params))
+      end
+
+      it "stores the original query parameters in the list object" do
+        WebMock.stub(:get, "https://apisandbox.packlink.com/v1/base/object?nice=coat&parent_id=123")
+          .to_return(body: %([]))
+
+        query = {nice: "coat", parent_id: 123}
+        list = Packlink::BaseObject.all(query: query)
+        list.query.should eq(Packlink::Util.normalize_hash(query))
+      end
+
       it "accepts a client to preform the request" do
         WebMock.stub(:get, "https://apisandbox.packlink.com/v1/base/object")
           .with(headers: {"Authorization" => "custom_api_key"})

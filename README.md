@@ -58,13 +58,13 @@ Register a new user:
 
 ```crystal
 response = Packlink::Registration.create({
-  email:                     "myaccount@packlink.es",
+  email:                     "myaccount@packlink.com",
   estimated_delivery_volume: "1 - 10",
   ip:                        "123.123.123.123",
   password:                  "myPassword",
-  phone:                     "+447665588771",
+  phone:                     "+447987654321",
   platform:                  "PRO",
-  platform_country:          "ES",
+  platform_country:          "GB",
   policies:                  {
     terms_and_conditions: true,
     data_processing:      true,
@@ -81,6 +81,10 @@ response = Packlink::Registration.create({
 # get the temporary token
 token = response.token # => e0f90eacfa678e20051c3a5bc2bcc05a...
 ```
+
+*__Note__: User registration is only required if you are creating accounts for
+other users. For example, in a situation where other users can create an account
+for Packlink through your platform or plugin.* 
 
 ### Activation
 

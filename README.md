@@ -88,7 +88,7 @@ for Packlink through your platform or plugin.*
 
 ### Activation
 
-Using the temporary token, obtained at registration, check if the user is
+Using the temporary token obtained at registration, check if the user is
 activated.
 
 ```crystal
@@ -103,6 +103,87 @@ unless Packlink::User.active?("e0f90eac...")
   permanent_token = response.token # => fa678e20...
 end
 ```
+
+### Logging in
+
+If a given user already has a Packlink Pro account, the API key can be retreived
+by logging in:
+
+```crystal
+response = Packlink::Auth.login({
+  email:            "myaccount@packlink.com",
+  password:         "myPassword",
+  platform:         "pro",
+  platform_country: "gb",
+})
+token = response.token # => fa678e20...
+```
+
+### Password reset
+If a given user has an account but forgot their password, a password reset link
+can be requested:
+
+```crystal
+Packlink::Auth.reset_password({
+  email:            "myaccount@packlink.com",
+  platform:         "pro",
+  platform_country: "gb",
+})
+```
+
+*__Note:__ This will never fail and there is no response. If the email address
+exists, an email will arrive. If not, nothing will happen.*
+
+### Get Services
+
+You need a source (`from`), destination (`to`) and at least one `package`:
+
+```crystal
+response = Packlink::Service
+  .from("GB", "BN2 1JJ")
+  .to("BE", 9000)
+  .package(15, 15, 15, 1.5)
+  .all
+
+service = response.items.first
+
+service.id                                  # => 20154
+service.carrier_name                        # => "DPD"
+service.name                                # => "Classic Kleinpaket"
+service.price.total_price                   # => 3.94
+service.price.currency                      # => "EUR"
+service.transit_hours                       # => "24"
+service.available_dates["2020/03/30"].from  # => "08:00"
+service.available_dates["2020/03/30"].till  # => "18:00"
+...
+```
+
+*__Note:__ For a full list if available field, check the
+[services spec fixture](https://github.com/tilishop/packlink.cr/blob/master/spec/fixtures/services/all-response.json).* 
+
+Order of the method chain is not important:
+
+```crystal
+response = Packlink::Service
+  .package(15, 15, 15, 1.5)
+  .from("GB", "BN2 1JJ")
+  .to("BE", 9000)
+  .all
+```
+
+You can also add multiple packages (there should be at lease one, though):
+
+```crystal
+response = Packlink::Service
+  .package(40, 30, 25, 5)
+  .package(15, 15, 15, 1.5)
+  .package(20, 15, 10, 3)
+  .from("GB", "BN2 1JJ")
+  .to("BE", 9000)
+  .all
+```
+
+
 
 ## Contributing
 

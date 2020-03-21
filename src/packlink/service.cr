@@ -144,16 +144,16 @@ struct Packlink
 
     struct Hours
       getter value : String
-      getter open_at : String
-      getter closed_at : String
+      getter from : String
+      getter till : String
 
       def initialize(pull : JSON::PullParser)
         @value = pull.read_string
-        @open_at, @closed_at = @value.scan(/\d{2}\:\d{2}/).map(&.[0])
+        @from, @till = @value.scan(/\d{2}\:\d{2}/).map(&.[0])
       end
 
       def to_s
-        "#{@open_at}-#{@closed_at}"
+        "#{@from}-#{@till}"
       end
     end
 

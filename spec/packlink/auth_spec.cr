@@ -43,6 +43,16 @@ describe Packlink::Auth do
         Packlink::Auth.login({platform: "pro"})
       end
     end
+
+    it "fails if the login credentials are incorrect" do
+      WebMock.stub(:get, "https://apisandbox.packlink.com/v1/login")
+        .with(headers: {"Authorization" => "Basic YUBiLmM6c1VNdElOR3dPTkc="})
+        .to_return(status: 401, body: read_fixture("logins/get-401"))
+
+      expect_raises(Packlink::RequestException) do
+        Packlink::Auth.login({email: "a@b.c", password: "sUMtINGwONG"})
+      end
+    end
   end
 
   describe ".password_reset" do

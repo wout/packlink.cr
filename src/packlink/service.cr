@@ -77,7 +77,7 @@ struct Packlink
     class Query
       def initialize(@client : Client = Client.instance)
         @query = Hash(String, A::HS2).new
-        @packages = Array(A::QueryHash).new
+        @packages = Array(A::HS2).new
       end
 
       def from(

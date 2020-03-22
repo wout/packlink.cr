@@ -266,7 +266,12 @@ below ensures type safety and completeness of the posted data.
 
 ```crystal
 # 1. Build one or more packages
-package = Packlink::Package.build({width: 15,height: 15,length: 10,weight: 1})
+package = Packlink::Package.build({
+  width: 15,
+  height: 15,
+  length: 10,
+  weight: 1
+})
 
 # 2. Build a source address
 from_address = Packlink::Address.build({

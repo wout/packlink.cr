@@ -317,19 +317,19 @@ order = Packlink::Order.create({
   order_custom_reference: "Beautiful leggins from eBay",
   shipments:              [shipment]
 })
-```
 
-The returned object will contain a sumaary of the order. Something like:
+# If everything went will, you will receive an order summary:
 
-```crystal
 order.order_reference             # => "DE00019732CF"
+order.total_amount                # => 4.9
+
 line = order.shipments.first      # => Packlink::Order::ShipmentLine
+
 line.shipment_custom_reference    # => "eBay_11993382332"
 line.shipment_reference           # => "DE000193392AB"
 line.insurance_coverage_amount    # => 750.0
 line.total_price                  # => 4.9
 line.receipt                      # => "http://url/to/receipt"
-order.total_amount                # => 4.9
 ```
 
 ## Contributing

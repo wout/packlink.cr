@@ -318,7 +318,7 @@ order = Packlink::Order.create({
   shipments:              [shipment]
 })
 
-# If everything went will, you will receive an order summary:
+# If everything went well, you will receive an order summary:
 
 order.order_reference             # => "DE00019732CF"
 order.total_amount                # => 4.9
@@ -331,6 +331,29 @@ line.insurance_coverage_amount    # => 750.0
 line.total_price                  # => 4.9
 line.receipt                      # => "http://url/to/receipt"
 ```
+
+### Create Draft
+
+Creates a new draft shipment. Building a draft shipment is exactly the same as
+building a shipment for an order, except that in a draft, all fields are
+optional.
+
+```crystal
+draft = Packlink::Draft.create({
+  from:     from_address,
+  to:       to_address,
+  packages: [package],
+  content:                   "Test content",
+  contentvalue:              160,
+  dropoff_point_id:          "062049",
+  service_id:                20149,
+  shipment_custom_reference: "69a280b2-f7db-11e6-915e-5c54c4398ed2",
+  source:                    "source_inbound",
+})
+
+draft.shipment_reference   # => "DE00019732CF"
+```
+
 
 ## Contributing
 

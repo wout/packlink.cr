@@ -4,6 +4,15 @@ def test_service
   Packlink::Service.from_json(read_fixture("services/all-response"))
 end
 
+def test_service_package
+  Packlink::Package.build({
+    width:  15,
+    height: 15,
+    length: 15,
+    weight: 1.5,
+  })
+end
+
 describe Packlink::Service do
   before_each do
     configure_test_api_key
@@ -113,7 +122,7 @@ describe Packlink::Service do
       client = Packlink::Client.new("from_key")
       Packlink::Service
         .from("GB", "BN2 1JJ", client: client).to("BE", 9000)
-        .package(15, 15, 15, 1.5).all
+        .package(test_service_package).all
     end
   end
 
@@ -123,37 +132,41 @@ describe Packlink::Service do
     end
 
     it "accepts a client parameter" do
-      WebMock.stub(:get, "https://apisandbox.packlink.com/v1/services?to[country]=BE&to[zip]=9000&from[country]=GB&from[zip]=BN2+1JJ&packages[0][width]=20&packages[0][height]=20&packages[0][length]=20&packages[0][weight]=2")
+      WebMock.stub(:get, "https://apisandbox.packlink.com/v1/services?to[country]=BE&to[zip]=9000&from[country]=GB&from[zip]=BN2+1JJ&packages[0][width]=15&packages[0][height]=15&packages[0][length]=15&packages[0][weight]=1.5")
         .with(headers: {"Authorization" => "to_key"})
         .to_return(body: read_fixture("services/all-response"))
 
       client = Packlink::Client.new("to_key")
       Packlink::Service
         .to("BE", 9000, client: client).from("GB", "BN2 1JJ")
-        .package(20, 20, 20, 2).all
+        .package(test_service_package).all
     end
   end
 
   describe ".package" do
     it "returns a query builder" do
-      Packlink::Service.package(10, 10, 10, 1)
-        .should be_a(Packlink::Service::Query)
+      query = Packlink::Service.package({
+        width:  15,
+        height: 15,
+        length: 15,
+        weight: 1.5,
+      })
+      query.should be_a(Packlink::Service::Query)
     end
 
     it "accepts a package" do
-      package = Packlink::Package.new(10, 10, 10, 1)
-      Packlink::Service.package(package)
+      Packlink::Service.package(test_service_package)
         .should be_a(Packlink::Service::Query)
     end
 
     it "accepts a client parameter" do
-      WebMock.stub(:get, "https://apisandbox.packlink.com/v1/services?to[country]=BE&to[zip]=9000&from[country]=GB&from[zip]=BN2+1JJ&packages[0][width]=25&packages[0][height]=22&packages[0][length]=21&packages[0][weight]=20.1")
+      WebMock.stub(:get, "https://apisandbox.packlink.com/v1/services?to[country]=BE&to[zip]=9000&from[country]=GB&from[zip]=BN2+1JJ&packages[0][width]=15&packages[0][height]=15&packages[0][length]=15&packages[0][weight]=1.5")
         .with(headers: {"Authorization" => "package_key"})
         .to_return(body: read_fixture("services/all-response"))
 
       client = Packlink::Client.new("package_key")
       Packlink::Service
-        .package(25, 22, 21, 20.1, client: client)
+        .package(test_service_package, client: client)
         .to("BE", 9000).from("GB", "BN2 1JJ").all
     end
   end
@@ -174,7 +187,7 @@ describe Packlink::Service::Query do
   describe "#from" do
     it "adds a source" do
       query = Packlink::Service::Query.new
-      query.from("GB", "BN2 1JJ").to("BE", 2000).package(10, 10, 10, 1)
+      query.from("GB", "BN2 1JJ").to("BE", 2000).package(test_service_package)
       query.to_h["from"].should eq({"country" => "GB", "zip" => "BN2 1JJ"})
     end
   end
@@ -182,24 +195,30 @@ describe Packlink::Service::Query do
   describe "#to" do
     it "adds a destination" do
       query = Packlink::Service::Query.new
-      query.from("GB", "BN2 1JJ").to("BE", 2000).package(10, 10, 10, 1)
+      query.from("GB", "BN2 1JJ").to("BE", 2000).package(test_service_package)
       query.to_h["to"].should eq({"country" => "BE", "zip" => "2000"})
     end
   end
 
   describe "#package" do
     it "adds a package" do
+      small_package = Packlink::Package.build({
+        width:  5,
+        height: 5,
+        length: 5,
+        weight: 0.5,
+      })
       query = Packlink::Service::Query.new
       query.from("GB", "BN2 1JJ").to("BE", 2000)
-      query.package(10, 10, 10, 1)
-      query.package(5, 5, 5, 0.5)
+      query.package(test_service_package)
+      query.package(small_package)
       hash = query.to_h
       hash["packages"].size.should eq(2)
       hash["packages"]["0"].should eq({
-        "width"  => "10",
-        "height" => "10",
-        "length" => "10",
-        "weight" => "1",
+        "width"  => "15",
+        "height" => "15",
+        "length" => "15",
+        "weight" => "1.5",
       })
       hash["packages"]["1"].should eq({
         "width"  => "5",
@@ -210,41 +229,40 @@ describe Packlink::Service::Query do
     end
 
     it "accepts a package" do
-      package = Packlink::Package.new(10, 10, 10, 1)
       query = Packlink::Service::Query.new
       query.from("GB", "BN2 1JJ").to("BE", 2000)
-      query.package(package)
+      query.package(test_service_package)
       hash = query.to_h
       hash["packages"].size.should eq(1)
       hash["packages"]["0"].should eq({
-        "width"  => "10",
-        "height" => "10",
-        "length" => "10",
-        "weight" => "1",
+        "width"  => "15",
+        "height" => "15",
+        "length" => "15",
+        "weight" => "1.5",
       })
     end
   end
 
   describe "#all" do
     it "fetches the requested services" do
-      WebMock.stub(:get, "https://apisandbox.packlink.com/v1/services?from[country]=GB&from[zip]=BN2+1JJ&to[country]=BE&to[zip]=2000&packages[0][width]=30&packages[0][height]=20&packages[0][length]=10&packages[0][weight]=3&packages[1][width]=15&packages[1][height]=13&packages[1][length]=11&packages[1][weight]=1")
+      WebMock.stub(:get, "https://apisandbox.packlink.com/v1/services?from[country]=GB&from[zip]=BN2+1JJ&to[country]=BE&to[zip]=2000&packages[0][width]=15&packages[0][height]=15&packages[0][length]=15&packages[0][weight]=1.5&packages[1][width]=15&packages[1][height]=15&packages[1][length]=15&packages[1][weight]=1.5")
         .with(headers: {"Authorization" => "ki4SpxPdR8860exd2hZ23kUZ6MpJp07x"})
         .to_return(body: read_fixture("services/all-response"))
 
       services = Packlink::Service
         .from("GB", "BN2 1JJ").to("BE", 2000)
-        .package(30, 20, 10, 3).package(15, 13, 11, 1).all
+        .package(test_service_package).package(test_service_package).all
       services.should be_a(Packlink::List(Packlink::Service::Item))
     end
 
     it "optionally accepts a client to perform the call on" do
-      WebMock.stub(:get, "https://apisandbox.packlink.com/v1/services?from[country]=GB&from[zip]=BN2+1JJ&to[country]=BE&to[zip]=2000&packages[0][width]=50&packages[0][height]=40&packages[0][length]=30&packages[0][weight]=9.5")
+      WebMock.stub(:get, "https://apisandbox.packlink.com/v1/services?from[country]=GB&from[zip]=BN2+1JJ&to[country]=BE&to[zip]=2000&packages[0][width]=15&packages[0][height]=15&packages[0][length]=15&packages[0][weight]=1.5")
         .with(headers: {"Authorization" => "fabulous_key"})
         .to_return(body: read_fixture("services/all-response"))
 
       Packlink::Service
         .from("GB", "BN2 1JJ").to("BE", 2000)
-        .package("50", "40", "30", "9.5")
+        .package(test_service_package)
         .all(client: Packlink::Client.new("fabulous_key"))
     end
   end

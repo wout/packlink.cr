@@ -141,7 +141,7 @@ You need a source (`from`), destination (`to`) and at least one `package`:
 services = Packlink::Service
   .from("GB", "BN2 1JJ")
   .to("BE", 9000)
-  .package(15, 15, 15, 1.5)
+  .package({width: 15, height: 15, length: 15, weight: 1.5})
   .all
 
 service = services.first
@@ -161,32 +161,28 @@ service.available_dates["2020/03/30"].to_s  # => "08:00-18:00"
 *__Note:__ For a full list if available fields, check the
 [services spec fixture](https://github.com/tilishop/packlink.cr/blob/master/spec/fixtures/services/all-response.json).* 
 
-Order of the method chain is not important:
+You can also add multiple packages and the order of the method chain is not
+important:
 
 ```crystal
 services = Packlink::Service
-  .package(15, 15, 15, 1.5)
+  .package({width: 40, height: 30, length: 25, weight: 5})
   .from("GB", "BN2 1JJ")
+  .package({width: 15, height: 15, length: 15, weight: 1.5})
   .to("BE", 9000)
+  .package({width: 20, height: 15, length: 10, weight: 3})
   .all
 ```
 
-You can also add multiple packages (there should be at lease one, though):
+With an instance of a `Packlink::Package` object:
 
 ```crystal
-services = Packlink::Service
-  .package(40, 30, 25, 5)
-  .package(15, 15, 15, 1.5)
-  .package(20, 15, 10, 3)
-  .from("GB", "BN2 1JJ")
-  .to("BE", 9000)
-  .all
-```
-
-Or an instance of a `Packlink::Package` object:
-
-```crystal
-package = Packlink::Package.new(40, 30, 25, 5)
+package = Packlink::Package.build({
+  width: 40,
+  height: 30,
+  length: 25,
+  weight: 5
+})
 services = Packlink::Service
   .package(package)
   .from("GB", "BN2 1JJ")
@@ -198,14 +194,13 @@ For more clarity, or a different order, use named arguments:
 
 ```crystal
 services = Packlink::Service
-  .package(width: 15, height: 15, length: 15, weight: 1.5)
+  .package(package)
   .from(country: "GB", zip: "BN2 1JJ")
   .to(country: "BE", zip: 9000)
   .all
 ```
 
-Finally, you can also avoid the method chain and use a named tuple or hash, if
-that's your thing:
+Finally, you can also avoid the method chain and use a named tuple or hash:
 
 ```crystal
 services = Packlink::Service.all(query: {
@@ -213,6 +208,18 @@ services = Packlink::Service.all(query: {
   to:       {country: "BE", zip: 9000},
   packages: {
     "0": {width: 10, height: 10, length: 10, weight: 1},
+  },
+})
+```
+
+Or even:
+
+```crystal
+services = Packlink::Service.all(query: {
+  from:     {country: "DE", zip: 56457},
+  to:       {country: "BE", zip: 9000},
+  packages: {
+    "0": Packlink::Package.build({width: 40, height: 30, length: 25, weight: 5}),
   },
 })
 ```

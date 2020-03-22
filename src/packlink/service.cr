@@ -63,8 +63,11 @@ struct Packlink
       Query.new(client).to(country, zip)
     end
 
-    def self.package(*args, client : Client = Client.instance)
-      Query.new(client).package(*args)
+    def self.package(
+      package : Hash | NamedTuple,
+      client : Client = Client.instance
+    )
+      package(Packlink::Package.build(package))
     end
 
     def self.package(
@@ -100,10 +103,6 @@ struct Packlink
           "zip"     => zip,
         }.transform_values(&.to_s)
         self
-      end
-
-      def package(*args)
-        package(Packlink::Package.new(*args))
       end
 
       def package(package : Packlink::Package)

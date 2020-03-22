@@ -12,6 +12,15 @@ def test_proxy
   Packlink::Proxy.new(proxy_client)
 end
 
+def test_proxy_package
+  Packlink::Package.build({
+    width:  10,
+    height: 10,
+    length: 10,
+    weight: 1,
+  })
+end
+
 describe Packlink::Proxy do
   describe "#client" do
     it "returns the given client" do
@@ -99,25 +108,25 @@ describe Packlink::Proxy do
     end
 
     it "proxies from" do
-      WebMock.stub(:get, "https://apisandbox.packlink.com/v1/services?from[country]=GB&from[zip]=BN2+1JJ&to[country]=BE&to[zip]=3000&packages[0][width]=30&packages[0][height]=30&packages[0][length]=30&packages[0][weight]=3")
+      WebMock.stub(:get, "https://apisandbox.packlink.com/v1/services?from[country]=GB&from[zip]=BN2+1JJ&to[country]=BE&to[zip]=3000&packages[0][width]=10&packages[0][height]=10&packages[0][length]=10&packages[0][weight]=1")
         .with(headers: {"Authorization" => "secret_proxy_key"})
         .to_return(body: read_fixture("services/all-response"))
 
       test_proxy.service
         .from("GB", "BN2 1JJ")
         .to("BE", 3000)
-        .package(30, 30, 30, 3).all
+        .package(test_proxy_package).all
     end
 
     it "proxies to" do
-      WebMock.stub(:get, "https://apisandbox.packlink.com/v1/services?to[country]=GB&to[zip]=BN2+1JJ&from[country]=BE&from[zip]=3000&packages[0][width]=20&packages[0][height]=20&packages[0][length]=20&packages[0][weight]=2")
+      WebMock.stub(:get, "https://apisandbox.packlink.com/v1/services?to[country]=GB&to[zip]=BN2+1JJ&from[country]=BE&from[zip]=3000&packages[0][width]=10&packages[0][height]=10&packages[0][length]=10&packages[0][weight]=1")
         .with(headers: {"Authorization" => "secret_proxy_key"})
         .to_return(body: read_fixture("services/all-response"))
 
       test_proxy.service
         .to("GB", "BN2 1JJ")
         .from("BE", 3000)
-        .package(20, 20, 20, 2).all
+        .package(test_proxy_package).all
     end
 
     it "proxies package" do
@@ -126,7 +135,7 @@ describe Packlink::Proxy do
         .to_return(body: read_fixture("services/all-response"))
 
       test_proxy.service
-        .package(10, 10, 10, 1)
+        .package(test_proxy_package)
         .from("BE", 1000)
         .to("GB", "BN2 1JJ").all
     end

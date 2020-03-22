@@ -3,7 +3,7 @@ struct Packlink
     module Buildable
       macro buildable(mapping)
         JSON.mapping({{ mapping }})
-        
+
         def self.build(data : NamedTuple | Hash)
           from_json(data.to_json)
         end

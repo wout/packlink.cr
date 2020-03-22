@@ -73,7 +73,7 @@ def test_draft_address_to
 end
 
 def test_draft_customs
-  Packlink::Customs.build({
+  Packlink::Shipment::Customs.build({
     eori_number:       "GB123456789000",
     sender_personalid: "EX123456",
     sender_type:       "private",

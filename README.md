@@ -300,7 +300,7 @@ to_address = Packlink::Address.build({
 })
 
 # 3b. Build a customs object (only required for shipments outside the EU)
-customs = Packlink::Customs.build({
+customs = Packlink::Shipment::Customs.build({
   eori_number:       "GB123456789000",
   sender_personalid: "EX123456",
   sender_type:       "private",
@@ -371,14 +371,27 @@ draft = Packlink::Draft.create({
 draft.shipment_reference   # => "DE00019732CF"
 ```
 
-### Get Label(s)
+### Get Labels
 
-Returns the shipping label(s) in PDF format (A4) for the given shipment id:
+Returns the shipping labels in PDF format (A4) for the given shipment
+reference:
 
 ```crystal
 labels = Packlink::Label.all("ES00019388AB")
 
-labels.first   # => "http://packlink.de/de/purchase/PostVenta/getLabelsByRef?ref=52cfc1a8419a6982476224aec065618795673fe9"
+labels.first   # => "http://packlink.de/de/purchase/PostVenta/getLabelsByRef?ref=52cfc1a841..."
+```
+
+*__Note:__ In many cases, there will only be one shipping label.*
+
+### Get Customs
+
+Returns the shipping customs PDF url.
+
+```crystal
+pdf = Packlink::Customs.pdf("DE2015API0000003515")
+
+pdf   # => "http://static.packitos.com/prodev-pro/customs/c24a19d1bf25df8..."
 ```
 
 ## Contributing

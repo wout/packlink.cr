@@ -411,7 +411,22 @@ shipment.collection_hour    # => "00:00-24:00"
 ```
 
 *__Note:__ For a full list if available fields, check the
-[shipment spec fixture](https://github.com/tilishop/packlink.cr/blob/master/spec/fixtures/shipments/get-response.json).* 
+[shipment spec fixture](https://github.com/tilishop/packlink.cr/blob/master/spec/fixtures/shipments/get-response.json).*
+
+### Track a Shipment
+
+Returns the tracking history of your shipment.
+
+```crystal
+history = Packlink::Tracking.history("ES00019388AB")
+event = history.first
+
+event.city          # => "MIAMI"
+event.created_at    # => "2015-02-18 04:03:20.0 UTC"
+event.description   # => "DELIVERED"
+event.timestamp     # => 14242322
+```
+
 
 ## Contributing
 

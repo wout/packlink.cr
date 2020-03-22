@@ -260,7 +260,9 @@ dropoff.zip                   # => "BN2 1EF"
 
 Creates a new order. Each order can include several shipments.
 
-An order consists of multiple parts, and that is how one is built.
+An order consists of multiple parts, and that is how one should be build built.
+You can also use one large `Hash` or `NamedTuple`. But using the method below
+ensures type safety and completeness of the posted data.
 
 ```crystal
 # 1. Build one or more packages
@@ -324,10 +326,6 @@ line.total_price                  # => 4.9
 line.receipt                      # => "http://url/to/receipt"
 order.total_amount                # => 4.9
 ```
-
-*__Note:__ The order can alos be create with one large `Hash` or `NamedTuple`.
-But using the method above, ensures type safety and completeness of the posted
-data.*
 
 ## Contributing
 

@@ -411,7 +411,7 @@ shipment.collection_hour    # => "00:00-24:00"
 ```
 
 *__Note:__ For a full list if available fields, check the
-[shipment spec fixture](https://github.com/tilishop/packlink.cr/blob/master/spec/fixtures/shipments/all-response.json).* 
+[shipment spec fixture](https://github.com/tilishop/packlink.cr/blob/master/spec/fixtures/shipments/get-response.json).* 
 
 ## Contributing
 

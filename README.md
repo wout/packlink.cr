@@ -34,7 +34,7 @@ client = Packlink::Client.new("<your-api-key>")
 shipments = Packlink::Shipment
   .from("GB", "BN2 1JJ")
   .to("BE", 2000)
-  .package(40, 30, 20, 1.5)
+  .package({width: 40, height: 30, length: 25, weight: 5})
   .all(client: client)
 ```
 
@@ -44,10 +44,10 @@ If you need to do multiple calls with the same API Key, use the following helper
 Packlink::Client.with_api_key("<your-api-key>") do |packlink|
   from_gb_to_be = packlink.shipment
     .from("GB", "BN2 1JJ").to("BE", 2000)
-    .package(40, 30, 20, 1.5).all
+    .package({width: 40, height: 30, length: 25, weight: 5}).all
   from_de_to_fr = packlink.shipment
-    .package(40, 30, 20, 3)
-    .package(10, 10, 10, 0.5)
+    .package({width: 40, height: 30, length: 25, weight: 5})
+    .package({width: 10, height: 10, length: 10, weight: 1})
     .from("DE", 10587).to("FR", 75013).all
 end
 ```

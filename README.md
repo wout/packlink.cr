@@ -3,6 +3,9 @@
 Compare Courier Services or Send a Parcel with Packlink. This is the unofficial
 [Crystal](https://crystal-lang.org/) shard for Packlink.
 
+[![Build Status](https://travis-ci.org/tilishop/packlink.cr.svg?branch=master)](https://travis-ci.org/tilishop/packlink.cr)
+[![GitHub version](https://badge.fury.io/gh/tilishop%2Fpacklink.cr.svg)](https://badge.fury.io/gh/tilishop%2Fpacklink.cr)
+
 ## Installation
 
 Add packlink as a depencency to your application's `shard.yml`:

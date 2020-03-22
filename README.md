@@ -379,7 +379,7 @@ reference:
 ```crystal
 labels = Packlink::Label.all("ES00019388AB")
 
-labels.first   # => "http://packlink.de/de/purchase/PostVenta/getLabelsByRef?ref=52cfc1a841..."
+puts labels.first   # => "http://packlink.de/de/purchase/PostVenta/getLabelsByRef?ref=52cf..."
 ```
 
 *__Note:__ In many cases, there will only be one shipping label.*
@@ -391,7 +391,7 @@ Returns the shipping customs PDF url.
 ```crystal
 pdf = Packlink::Customs.pdf("DE2015API0000003515")
 
-pdf   # => "http://static.packitos.com/prodev-pro/customs/c24a19d1bf25df8..."
+puts pdf   # => "http://static.packitos.com/prodev-pro/customs/c24a19d1bf25df8..."
 ```
 
 ### Get Shipment Details
@@ -422,11 +422,49 @@ history = Packlink::Tracking.history("ES00019388AB")
 event = history.first
 
 event.city          # => "MIAMI"
-event.created_at    # => "2015-02-18 04:03:20.0 UTC"
+event.created_at    # => 2020-02-18 04:03:20.0 UTC : Time
 event.description   # => "DELIVERED"
 event.timestamp     # => 14242322
 ```
 
+### Registering and receiving Shipment Callbacks
+
+Store a url to notifiy shipment events. This call should be done only once per
+Packlink client since the configured url will be used to send status updates for
+all shipments of the client.
+
+```crystal
+success = Packlink::Callback.register("https://www.urlexample.com/packlink")
+
+puts success   # => true
+```
+
+#### Event Callbacks
+
+On the configured endpoints, you could process the events as follows:
+
+```crystal
+# grab the posted JSON
+json = post.body
+
+# parse the event
+event = Packlink::Callback::Event.from_json(json)
+
+event.name                            # => "shipment.carrier.success"
+event.created_at                      # => 2020-01-01 15:55:23.0 UTC : Time
+event.data.shipment_custom_reference  # => "eBay_11993382332589"
+event.data.shipment_reference         # => "DE567YH981230AA"
+```
+
+#### Available events
+- `shipment.carrier.success`: Shipment registered successfully in carrier's system.
+- `shipment.carrier.fail`: Shipment failed to register in carrier's system.
+- `shipment.label.ready`: Labels ready to print.
+- `shipment.label.fail`: Labels have failed.
+- `shipment.tracking.update`: Shipment is in transit.
+- `shipment.delivered`: Shipment has been delivered.
+
+##### shipment.carrier.fail
 
 ## Contributing
 

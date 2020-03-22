@@ -54,6 +54,14 @@ describe Packlink::Base do
           query: {platform: "pro"})
       end
 
+      it "allows mapping to be optional" do
+        WebMock.stub(:post, "https://apisandbox.packlink.com/v1/base/object/fabulous")
+          .to_return(body: "")
+
+        response = Packlink::BaseObjectWithoutMapping.create(params: {id: "fabulous"})
+        response.should be_true
+      end
+
       it "fails with missing parameters" do
         expect_raises(Packlink::ParamsMissingException) do
           Packlink::BaseObject.create(
@@ -94,6 +102,14 @@ describe Packlink::Base do
         Packlink::BaseObject.find(
           params: {id: "fabulous"},
           headers: headers)
+      end
+
+      it "allows mapping to be optional" do
+        WebMock.stub(:get, "https://apisandbox.packlink.com/v1/base/object/fabulous")
+          .to_return(body: "")
+
+        response = Packlink::BaseObjectWithoutMapping.find(params: {id: "fabulous"})
+        response.should be_true
       end
 
       it "fails with missing parameters" do
@@ -154,7 +170,7 @@ describe Packlink::Base do
         WebMock.stub(:get, "https://apisandbox.packlink.com/v1/base/object/X75Z/strings")
           .to_return(body: %(["pack", "link"]))
 
-        list = Packlink::BaseObjectWithStrings.all({id: "X75Z"})
+        list = Packlink::BaseObjectWithoutMapping.all({id: "X75Z"})
         list.should be_a(Packlink::List(String))
         list.size.should eq(2)
         list.first.should eq("pack")
@@ -179,7 +195,9 @@ struct Packlink
     }
   end
 
-  struct BaseObjectWithStrings < Packlink::Base
+  struct BaseObjectWithoutMapping < Packlink::Base
+    will_create "base/object/:id"
+    will_find "base/object/:id"
     will_list "base/object/:id/strings"
   end
 end

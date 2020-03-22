@@ -371,6 +371,15 @@ draft = Packlink::Draft.create({
 draft.shipment_reference   # => "DE00019732CF"
 ```
 
+### Get Label(s)
+
+Returns the shipping label(s) in PDF format (A4) for the given shipment id:
+
+```crystal
+labels = Packlink::Label.all("ES00019388AB")
+
+labels.first   # => "http://packlink.de/de/purchase/PostVenta/getLabelsByRef?ref=52cfc1a8419a6982476224aec065618795673fe9"
+```
 
 ## Contributing
 

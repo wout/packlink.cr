@@ -1,6 +1,6 @@
 struct Packlink
   abstract struct Base
-    macro will_list(pattern, mapping)
+    macro will_list(pattern, mapping = nil)
       def self.all(
         params : NamedTuple | Hash = A::HS2.new,
         query : NamedTuple | Hash = A::HS2.new,
@@ -9,16 +9,18 @@ struct Packlink
       )
         path = AllPath.new(params).to_s
         json = client.get(path, query, headers: headers)
-        List(Item).from_json(%({
+        List({% if mapping %}Item{% else %}String{% end %}).from_json(%({
           "items":#{json},
           "query":#{query.to_json},
           "params":#{params.to_json}
         }))
       end
 
-      struct Item
-        JSON.mapping({{ mapping }})
-      end
+      {% if mapping %}
+        struct Item
+          JSON.mapping({{ mapping }})
+        end
+      {% end %}
 
       struct AllPath < Packlink::Path
         getter pattern = {{ pattern }}

@@ -149,6 +149,17 @@ describe Packlink::Base do
 
         Packlink::BaseObject.all(client: Packlink::Client.new("custom_api_key"))
       end
+
+      it "assumes an array of strings if no mapping is provided" do
+        WebMock.stub(:get, "https://apisandbox.packlink.com/v1/base/object/X75Z/strings")
+          .to_return(body: %(["pack", "link"]))
+
+        list = Packlink::BaseObjectWithStrings.all({id: "X75Z"})
+        list.should be_a(Packlink::List(String))
+        list.size.should eq(2)
+        list.first.should eq("pack")
+        list.last.should eq("link")
+      end
     end
   end
 end
@@ -166,5 +177,9 @@ struct Packlink
       name:     String,
       delivery: Bool,
     }
+  end
+
+  struct BaseObjectWithStrings < Packlink::Base
+    will_list "base/object/:id/strings"
   end
 end

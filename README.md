@@ -52,9 +52,13 @@ Packlink::Client.with_api_key("<your-api-key>") do |packlink|
 end
 ```
 
-### Registration
+### Registration and Authentication
 
-Register a new user:
+User management is only required if you are creating accounts for other users.
+For example, in a situation where other users can create an account for Packlink
+through your platform or plugin.
+
+#### Register a new user:
 
 ```crystal
 temporary_token = Packlink::Register.user({
@@ -81,11 +85,7 @@ temporary_token = Packlink::Register.user({
 puts temporary_token # => e0f90eacfa678e20051c3a5bc2bcc05a...
 ```
 
-*__Note__: User registration is only required if you are creating accounts for
-other users. For example, in a situation where other users can create an account
-for Packlink through your platform or plugin.* 
-
-### Activation
+#### Activation
 
 Using the temporary token obtained at registration, check if the user is
 activated.
@@ -103,7 +103,7 @@ unless Packlink::User.active?("e0f90eac...")
 end
 ```
 
-### Logging in
+#### Logging in
 
 If a given user already has a Packlink Pro account, the API key can be retreived
 by logging in:
@@ -118,7 +118,7 @@ token = Packlink::Auth.login({
 puts token # => fa678e20...
 ```
 
-### Password reset
+#### Password reset
 If a given user has an account but forgot their password, a password reset link
 can be requested:
 
@@ -393,6 +393,25 @@ pdf = Packlink::Customs.pdf("DE2015API0000003515")
 
 pdf   # => "http://static.packitos.com/prodev-pro/customs/c24a19d1bf25df8..."
 ```
+
+### Get Shipment Details
+
+Returns the shipping details.
+
+```crystal
+shipment = Packlink::Shipment.find("DE2015API0000003515")
+
+shipment.base_price         # => 15.85
+shipment.carrier            # => "Mondial Relay"
+shipment.collection.city    # => "Paris"
+shipment.collection.name    # => "Daniel Werner"
+shipment.collection_date    # => "2015-04-16"
+shipment.collection_hour    # => "00:00-24:00"
+...
+```
+
+*__Note:__ For a full list if available fields, check the
+[shipment spec fixture](https://github.com/tilishop/packlink.cr/blob/master/spec/fixtures/shipments/all-response.json).* 
 
 ## Contributing
 

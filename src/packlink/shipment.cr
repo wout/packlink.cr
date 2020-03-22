@@ -1,5 +1,47 @@
 struct Packlink
-  struct Shipment
+  struct Shipment < Base
+    will_find "shipments/:reference", {
+      base_price:                BigDecimal,
+      canceled:                  Bool,
+      carrier:                   String,
+      collection:                Address,
+      collection_date:           String,
+      collection_hour:           String,
+      content:                   String,
+      content_value:             BigDecimal,
+      delivery:                  Address,
+      extras:                    Array(String),
+      insurance_coverage:        BigDecimal,
+      insurance_price:           BigDecimal,
+      order_date:                {key: "orderDate", type: String},
+      parcel_number:             String | Int32,
+      parcels:                   Array(Package),
+      price:                     BigDecimal,
+      reference:                 String,
+      service:                   String,
+      shipment_custom_reference: String,
+      status:                    String,
+      total_taxes:               BigDecimal,
+      tracking_codes:            Array(String),
+      weight:                    BigDecimal,
+    }
+
+    def self.find(reference : String)
+      find({reference: reference})
+    end
+
+    struct Address
+      JSON.mapping({
+        city:       String,
+        name:       String,
+        country:    String,
+        phone:      String,
+        street:     String,
+        postalcode: String,
+        email:      String,
+      })
+    end
+
     struct Customs
       include Mixins::Buildable
 

@@ -1,7 +1,12 @@
 require "../spec_helper"
 
 def test_package
-  Packlink::Package.new(40, 30.1, "20", 0.5)
+  Packlink::Package.build({
+    width:  40,
+    height: 30.1,
+    length: "20",
+    weight: 0.5,
+  })
 end
 
 describe Packlink::Package do
@@ -17,6 +22,7 @@ describe Packlink::Package do
   describe "#to_h" do
     it "can be converted to a hash" do
       hash = test_package.to_h
+      hash.should be_a(Hash(String, Packlink::A::Measurement))
       hash["width"].should eq(40)
       hash["height"].should eq(30.1)
       hash["length"].should eq("20")
@@ -26,11 +32,7 @@ describe Packlink::Package do
 
   describe "#to_json" do
     it "can be converted to json" do
-      json = test_package.to_json
-      json.should match(/"width":40/)
-      json.should match(/"height":30.1/)
-      json.should match(/"length":"20"/)
-      json.should match(/"weight":0.5/)
+      test_package.to_json.should be_a(String)
     end
   end
 end

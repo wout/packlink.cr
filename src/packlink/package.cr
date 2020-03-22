@@ -1,24 +1,12 @@
 struct Packlink
   struct Package
-    getter :width, :height, :length, :weight
+    include Mixins::Buildable
 
-    def initialize(
-      @width : A::Measurement,
-      @height : A::Measurement,
-      @length : A::Measurement,
-      @weight : A::Measurement
-    )
-    end
-
-    def to_h
-      {
-        "width"  => @width,
-        "height" => @height,
-        "length" => @length,
-        "weight" => @weight,
-      }
-    end
-
-    delegate :to_json, to: to_h
+    buildable({
+      width:  A::Measurement,
+      height: A::Measurement,
+      length: A::Measurement,
+      weight: A::Measurement,
+    })
   end
 end

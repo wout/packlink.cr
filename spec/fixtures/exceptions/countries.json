@@ -2,6 +2,9 @@
   "messages": [
     {
       "message": "Country from and country to are required"
+    },
+    {
+      "message": "Country is not allowed"
     }
   ]
 }

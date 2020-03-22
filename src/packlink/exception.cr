@@ -3,9 +3,27 @@ struct Packlink
 
   class RequestException < Packlink::Exception
     JSON.mapping({
-      message:  String?,
-      messages: Array(Packlink::ExceptionMessage)?,
+      exception_message: {
+        type: String?,
+        key:  "message",
+      },
+      exception_messages: {
+        type: Array(Packlink::ExceptionMessage)?,
+        key:  "messages",
+      },
     })
+
+    def message
+      if exception_message
+        exception_message.to_s
+      else
+        exception_messages.as(Array(Packlink::ExceptionMessage))
+          .map { |message| message.message.to_s }
+          .join(", ")
+          .downcase
+          .capitalize
+      end
+    end
   end
 
   class ExceptionMessage < Packlink::Exception

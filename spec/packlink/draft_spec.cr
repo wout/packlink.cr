@@ -13,6 +13,7 @@ describe Packlink::Draft do
       draft = Packlink::Draft.create({
         content:                   "Test content",
         contentvalue:              160,
+        customs:                   test_draft_customs,
         dropoff_point_id:          "062049",
         service_id:                20149,
         shipment_custom_reference: "69a280b2-f7db-11e6-915e-5c54c4398ed2",
@@ -68,5 +69,22 @@ def test_draft_address_to
     street1:  "Avenue Marchal 1",
     surname:  "TestLastName",
     zip_code: "75001",
+  })
+end
+
+def test_draft_customs
+  Packlink::Customs.build({
+    eori_number:       "GB123456789000",
+    sender_personalid: "EX123456",
+    sender_type:       "private",
+    shipment_type:     "gift",
+    vat_number:        "GB123456789",
+    items:             [{
+      description_english: "Hairdryer",
+      quantity:            2,
+      weight:              1.3,
+      value:               33.5,
+      country_of_origin:   "GB",
+    }],
   })
 end

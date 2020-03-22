@@ -17,15 +17,16 @@ end
 describe Packlink::Address do
   describe "getters" do
     it "has getters for the values" do
-      test_address.city.should eq("Paris")
-      test_address.country.should eq("FR")
-      test_address.email.should eq("test@packlink.com")
-      test_address.name.should eq("TestName")
-      test_address.phone.should eq("630465777")
-      test_address.state.should eq("Paris")
-      test_address.street1.should eq("Avenue Marchal 1")
-      test_address.surname.should eq("TestLastName")
-      test_address.zip_code.should eq("75001")
+      address = test_address
+      address.city.should eq("Paris")
+      address.country.should eq("FR")
+      address.email.should eq("test@packlink.com")
+      address.name.should eq("TestName")
+      address.phone.should eq("630465777")
+      address.state.should eq("Paris")
+      address.street1.should eq("Avenue Marchal 1")
+      address.surname.should eq("TestLastName")
+      address.zip_code.should eq("75001")
     end
   end
 

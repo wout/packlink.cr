@@ -299,17 +299,34 @@ to_address = Packlink::Address.build({
   zip_code: "75001",
 })
 
+# 3b. Build a customs object (only required for shipments outside the EU)
+customs = Packlink::Customs.build({
+  eori_number:       "GB123456789000",
+  sender_personalid: "EX123456",
+  sender_type:       "private",
+  shipment_type:     "gift",
+  vat_number:        "GB123456789",
+  items:             [{
+    description_english: "Hairdryer",
+    quantity:            2,
+    weight:              1.3,
+    value:               33.5,
+    country_of_origin:   "GB",
+  }],
+})
+
 # 4. Build shipment (can be multiple within one order)
 shipment = Packlink::Order::Shipment.build({
-  from:     from_address,
-  to:       to_address,
-  packages: [package],
-  content:                   "Test content",
-  contentvalue:              160,
-  dropoff_point_id:          "062049",
-  service_id:                20149,
-  shipment_custom_reference: "69a280b2-f7db-11e6-915e-5c54c4398ed2",
-  source:                    "source_inbound",
+  from:                       from_address,
+  to:                         to_address,
+  packages:                   [package],
+  customs:                    customs,
+  content:                    "Test content",
+  contentvalue:               160,
+  dropoff_point_id:           "062049",
+  service_id:                 20149,
+  shipment_custom_reference:  "69a280b2-f7db-11e6-915e-5c54c4398ed2",
+  source:                     "source_inbound",
 })
 
 # 5. Create order
@@ -340,15 +357,15 @@ optional.
 
 ```crystal
 draft = Packlink::Draft.create({
-  from:     from_address,
-  to:       to_address,
-  packages: [package],
-  content:                   "Test content",
-  contentvalue:              160,
-  dropoff_point_id:          "062049",
-  service_id:                20149,
-  shipment_custom_reference: "69a280b2-f7db-11e6-915e-5c54c4398ed2",
-  source:                    "source_inbound",
+  from:                       from_address,
+  to:                         to_address,
+  packages:                   [package],
+  content:                    "Test content",
+  contentvalue:               160,
+  dropoff_point_id:           "062049",
+  service_id:                 20149,
+  shipment_custom_reference:  "69a280b2-f7db-11e6-915e-5c54c4398ed2",
+  source:                     "source_inbound",
 })
 
 draft.shipment_reference   # => "DE00019732CF"

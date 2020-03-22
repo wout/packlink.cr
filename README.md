@@ -260,7 +260,74 @@ dropoff.zip                   # => "BN2 1EF"
 
 Creates a new order. Each order can include several shipments.
 
+An order consists of multiple parts, and that is how one is built.
 
+```crystal
+# 1. Build one or more packages
+package = Packlink::Package.build({width: 15,height: 15,length: 10,weight: 1})
+
+# 2. Build a source address
+from_address = Packlink::Address.build({
+  city:     "Cannes",
+  country:  "FR",
+  email:    "test@packlink.com",
+  name:     "TestName",
+  phone:    "0666559988",
+  state:    "FR",
+  street1:  "Suffren 3",
+  surname:  "TestLastName",
+  zip_code: "06400",
+})
+
+# 3. Build a destination address
+to_address = Packlink::Address.build({
+  city:     "Paris",
+  country:  "FR",
+  email:    "test@packlink.com",
+  name:     "TestName",
+  phone:    "630465777",
+  state:    "FR",
+  street1:  "Avenue Marchal 1",
+  surname:  "TestLastName",
+  zip_code: "75001",
+})
+
+# 4. Build shipment (can be multiple within one order)
+shipment = Packlink::Order::Shipment.build({
+  from:     from_address,
+  to:       to_address,
+  packages: [package],
+  content:                   "Test content",
+  contentvalue:              160,
+  dropoff_point_id:          "062049",
+  service_id:                20149,
+  shipment_custom_reference: "69a280b2-f7db-11e6-915e-5c54c4398ed2",
+  source:                    "source_inbound",
+})
+
+# 5. Create order
+order = Packlink::Order.create({
+  order_custom_reference: "Beautiful leggins from eBay",
+  shipments:              [shipment]
+})
+```
+
+The returned object will contain a sumaary of the order. Something like:
+
+```crystal
+order.order_reference             # => "DE00019732CF"
+line = order.shipments.first      # => Packlink::Order::ShipmentLine
+line.shipment_custom_reference    # => "eBay_11993382332"
+line.shipment_reference           # => "DE000193392AB"
+line.insurance_coverage_amount    # => 750.0
+line.total_price                  # => 4.9
+line.receipt                      # => "http://url/to/receipt"
+order.total_amount                # => 4.9
+```
+
+*__Note:__ The order can alos be create with one large `Hash` or `NamedTuple`.
+But using the method above, ensures type safety and completeness of the posted
+data.*
 
 ## Contributing
 

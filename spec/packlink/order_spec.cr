@@ -10,12 +10,21 @@ describe Packlink::Order do
       WebMock.stub(:post, "https://apisandbox.packlink.com/v1/orders")
         .to_return(status: 200, body: read_fixture("orders/post-response"))
 
-      Packlink::Order.create({
+      order = Packlink::Order.create({
         order_custom_reference: "Beautiful leggins from eBay",
         shipments:              [
           test_order_shipment,
         ],
       })
+      order.order_reference.should eq("DE00019732CF")
+      order.shipments.should be_a(Array(Packlink::Order::ShipmentLine))
+      line = order.shipments.first
+      line.shipment_custom_reference.should eq("eBay_11993382332")
+      line.shipment_reference.should eq("DE000193392AB")
+      line.insurance_coverage_amount.should eq(750.0)
+      line.total_price.should eq(4.9)
+      line.receipt.should eq("http://url/to/receipt")
+      order.total_amount.should eq(4.9)
     end
   end
 end

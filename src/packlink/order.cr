@@ -2,7 +2,7 @@ struct Packlink
   struct Order < Base
     will_create "orders", {
       order_reference: String,
-      shipments:       Array(ShipmentItem),
+      shipments:       Array(ShipmentLine),
       total_amount:    BigDecimal,
     }
 
@@ -23,7 +23,7 @@ struct Packlink
       })
     end
 
-    struct ShipmentItem
+    struct ShipmentLine
       JSON.mapping({
         shipment_custom_reference: String,
         shipment_reference:        String,

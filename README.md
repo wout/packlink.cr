@@ -35,11 +35,16 @@ You can also include a client instance in each request you make:
 
 ```crystal
 client = Packlink::Client.new("<your-api-key>")
-shipments = Packlink::Shipment
-  .from("GB", "BN2 1JJ")
-  .to("BE", 2000)
-  .package({width: 40, height: 30, length: 25, weight: 5})
-  .all(client: client)
+
+begin
+  shipments = Packlink::Shipment
+    .from("GB", "BN2 1JJ")
+    .to("BE", 2000)
+    .package({width: 40, height: 30, length: 25, weight: 5})
+    .all(client: client)
+rescue e : Packlink::RequestException
+  puts e.message
+end
 ```
 
 If you need to do multiple calls with the same API key, use the following helper:

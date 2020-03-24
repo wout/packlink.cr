@@ -9,10 +9,6 @@ def test_token_other
 end
 
 describe Packlink::User do
-  before_each do
-    configure_test_api_key
-  end
-
   describe ".verify" do
     it "returns the current api key if it is active" do
       WebMock.stub(:get, "https://apisandbox.packlink.com/v1/users/api/keys")

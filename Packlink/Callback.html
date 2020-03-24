@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Crystal Docs 0.32.1">
+
+<link href="../css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../js/doc.js"></script>
+
+<svg class="hidden">
+  <symbol id="octicon-link" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+  </symbol>
+</svg>
+
+  <meta id="repository-name" content="github.com/tilishop/packlink.cr">
+  <title>Packlink::Callback - github.com/tilishop/packlink.cr</title>
+  <script type="text/javascript">
+    CrystalDoc.base_path = "../";
+  </script>
+</head>
+<body>
+
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="repository-links">
+      <a href="../index.html">README</a>
+    </div>
+  </div>
+
+  <div class="search-results" class="hidden">
+    <ul class="search-list"></ul>
+  </div>
+
+  <div class="types-list">
+    <ul>
+  
+  <li class="parent open current" data-id="github.com/tilishop/packlink.cr/Packlink" data-name="packlink">
+      <a href="../Packlink.html">Packlink</a>
+      
+        <ul>
+  
+  <li class="parent " data-id="github.com/tilishop/packlink.cr/Packlink/A" data-name="packlink::a">
+      <a href="../Packlink/A.html">A</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/A/HS2" data-name="packlink::a::hs2">
+      <a href="../Packlink/A/HS2.html">HS2</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/A/Measurement" data-name="packlink::a::measurement">
+      <a href="../Packlink/A/Measurement.html">Measurement</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/A/ParamsHash" data-name="packlink::a::paramshash">
+      <a href="../Packlink/A/ParamsHash.html">ParamsHash</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/A/QueryHash" data-name="packlink::a::queryhash">
+      <a href="../Packlink/A/QueryHash.html">QueryHash</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/A/Scalar" data-name="packlink::a::scalar">
+      <a href="../Packlink/A/Scalar.html">Scalar</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/A/Zipcode" data-name="packlink::a::zipcode">
+      <a href="../Packlink/A/Zipcode.html">Zipcode</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/Address" data-name="packlink::address">
+      <a href="../Packlink/Address.html">Address</a>
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/tilishop/packlink.cr/Packlink/Auth" data-name="packlink::auth">
+      <a href="../Packlink/Auth.html">Auth</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/Auth/CreatedResponse" data-name="packlink::auth::createdresponse">
+      <a href="../Packlink/Auth/CreatedResponse.html">CreatedResponse</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/Auth/CreatePath" data-name="packlink::auth::createpath">
+      <a href="../Packlink/Auth/CreatePath.html">CreatePath</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/Auth/FindPath" data-name="packlink::auth::findpath">
+      <a href="../Packlink/Auth/FindPath.html">FindPath</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/Auth/FoundResponse" data-name="packlink::auth::foundresponse">
+      <a href="../Packlink/Auth/FoundResponse.html">FoundResponse</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/AuthCredentialsMissingException" data-name="packlink::authcredentialsmissingexception">
+      <a href="../Packlink/AuthCredentialsMissingException.html">AuthCredentialsMissingException</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/Base" data-name="packlink::base">
+      <a href="../Packlink/Base.html">Base</a>
+      
+    </li>
+  
+  <li class="parent open current" data-id="github.com/tilishop/packlink.cr/Packlink/Callback" data-name="packlink::callback">
+      <a href="../Packlink/Callback.html">Callback</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/Callback/CreatePath" data-name="packlink::callback::createpath">
+      <a href="../Packlink/Callback/CreatePath.html">CreatePath</a>
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/tilishop/packlink.cr/Packlink/Callback/Event" data-name="packlink::callback::event">
+      <a href="../Packlink/Callback/Event.html">Event</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/Callback/Event/Data" data-name="packlink::callback::event::data">
+      <a href="../Packlink/Callback/Event/Data.html">Data</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/Client" data-name="packlink::client">
+      <a href="../Packlink/Client.html">Client</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/Config" data-name="packlink::config">
+      <a href="../Packlink/Config.html">Config</a>
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/tilishop/packlink.cr/Packlink/Customs" data-name="packlink::customs">
+      <a href="../Packlink/Customs.html">Customs</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/Customs/FindPath" data-name="packlink::customs::findpath">
+      <a href="../Packlink/Customs/FindPath.html">FindPath</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/Customs/FoundResponse" data-name="packlink::customs::foundresponse">
+      <a href="../Packlink/Customs/FoundResponse.html">FoundResponse</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/tilishop/packlink.cr/Packlink/Draft" data-name="packlink::draft">
+      <a href="../Packlink/Draft.html">Draft</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/Draft/CreatedResponse" data-name="packlink::draft::createdresponse">
+      <a href="../Packlink/Draft/CreatedResponse.html">CreatedResponse</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/Draft/CreatePath" data-name="packlink::draft::createpath">
+      <a href="../Packlink/Draft/CreatePath.html">CreatePath</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/tilishop/packlink.cr/Packlink/Dropoff" data-name="packlink::dropoff">
+      <a href="../Packlink/Dropoff.html">Dropoff</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/Dropoff/AllPath" data-name="packlink::dropoff::allpath">
+      <a href="../Packlink/Dropoff/AllPath.html">AllPath</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/Dropoff/Item" data-name="packlink::dropoff::item">
+      <a href="../Packlink/Dropoff/Item.html">Item</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/Dropoff/OpeningTimes" data-name="packlink::dropoff::openingtimes">
+      <a href="../Packlink/Dropoff/OpeningTimes.html">OpeningTimes</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/Exception" data-name="packlink::exception">
+      <a href="../Packlink/Exception.html">Exception</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/ExceptionMessage" data-name="packlink::exceptionmessage">
+      <a href="../Packlink/ExceptionMessage.html">ExceptionMessage</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/IncompleteQueryException" data-name="packlink::incompletequeryexception">
+      <a href="../Packlink/IncompleteQueryException.html">IncompleteQueryException</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/InvalidEnvironmentException" data-name="packlink::invalidenvironmentexception">
+      <a href="../Packlink/InvalidEnvironmentException.html">InvalidEnvironmentException</a>
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/tilishop/packlink.cr/Packlink/Label" data-name="packlink::label">
+      <a href="../Packlink/Label.html">Label</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/Label/AllPath" data-name="packlink::label::allpath">
+      <a href="../Packlink/Label/AllPath.html">AllPath</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/List" data-name="packlink::list(t)">
+      <a href="../Packlink/List.html">List</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/MethodNotSupportedException" data-name="packlink::methodnotsupportedexception">
+      <a href="../Packlink/MethodNotSupportedException.html">MethodNotSupportedException</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/MissingApiKeyException" data-name="packlink::missingapikeyexception">
+      <a href="../Packlink/MissingApiKeyException.html">MissingApiKeyException</a>
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/tilishop/packlink.cr/Packlink/Mixins" data-name="packlink::mixins">
+      <a href="../Packlink/Mixins.html">Mixins</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/Mixins/Buildable" data-name="packlink::mixins::buildable">
+      <a href="../Packlink/Mixins/Buildable.html">Buildable</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/tilishop/packlink.cr/Packlink/Order" data-name="packlink::order">
+      <a href="../Packlink/Order.html">Order</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/Order/CreatedResponse" data-name="packlink::order::createdresponse">
+      <a href="../Packlink/Order/CreatedResponse.html">CreatedResponse</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/Order/CreatePath" data-name="packlink::order::createpath">
+      <a href="../Packlink/Order/CreatePath.html">CreatePath</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/Order/Shipment" data-name="packlink::order::shipment">
+      <a href="../Packlink/Order/Shipment.html">Shipment</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/Order/ShipmentLine" data-name="packlink::order::shipmentline">
+      <a href="../Packlink/Order/ShipmentLine.html">ShipmentLine</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/Package" data-name="packlink::package">
+      <a href="../Packlink/Package.html">Package</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/ParamsMissingException" data-name="packlink::paramsmissingexception">
+      <a href="../Packlink/ParamsMissingException.html">ParamsMissingException</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/Path" data-name="packlink::path">
+      <a href="../Packlink/Path.html">Path</a>
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/tilishop/packlink.cr/Packlink/Proxy" data-name="packlink::proxy">
+      <a href="../Packlink/Proxy.html">Proxy</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/Proxy/Callback" data-name="packlink::proxy::callback">
+      <a href="../Packlink/Proxy/Callback.html">Callback</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/Proxy/Customs" data-name="packlink::proxy::customs">
+      <a href="../Packlink/Proxy/Customs.html">Customs</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/Proxy/Draft" data-name="packlink::proxy::draft">
+      <a href="../Packlink/Proxy/Draft.html">Draft</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/Proxy/Dropoff" data-name="packlink::proxy::dropoff">
+      <a href="../Packlink/Proxy/Dropoff.html">Dropoff</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/Proxy/Label" data-name="packlink::proxy::label">
+      <a href="../Packlink/Proxy/Label.html">Label</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/Proxy/Order" data-name="packlink::proxy::order">
+      <a href="../Packlink/Proxy/Order.html">Order</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/Proxy/Service" data-name="packlink::proxy::service">
+      <a href="../Packlink/Proxy/Service.html">Service</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/Proxy/Shipment" data-name="packlink::proxy::shipment">
+      <a href="../Packlink/Proxy/Shipment.html">Shipment</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/Proxy/Tracking" data-name="packlink::proxy::tracking">
+      <a href="../Packlink/Proxy/Tracking.html">Tracking</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/tilishop/packlink.cr/Packlink/Register" data-name="packlink::register">
+      <a href="../Packlink/Register.html">Register</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/Register/CreatedResponse" data-name="packlink::register::createdresponse">
+      <a href="../Packlink/Register/CreatedResponse.html">CreatedResponse</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/Register/CreatePath" data-name="packlink::register::createpath">
+      <a href="../Packlink/Register/CreatePath.html">CreatePath</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/RequestException" data-name="packlink::requestexception">
+      <a href="../Packlink/RequestException.html">RequestException</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/RequestTimeoutException" data-name="packlink::requesttimeoutexception">
+      <a href="../Packlink/RequestTimeoutException.html">RequestTimeoutException</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/ResourceNotFoundException" data-name="packlink::resourcenotfoundexception">
+      <a href="../Packlink/ResourceNotFoundException.html">ResourceNotFoundException</a>
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/tilishop/packlink.cr/Packlink/Service" data-name="packlink::service">
+      <a href="../Packlink/Service.html">Service</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/Service/AllPath" data-name="packlink::service::allpath">
+      <a href="../Packlink/Service/AllPath.html">AllPath</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/Service/CashOnDelivery" data-name="packlink::service::cashondelivery">
+      <a href="../Packlink/Service/CashOnDelivery.html">CashOnDelivery</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/Service/FindPath" data-name="packlink::service::findpath">
+      <a href="../Packlink/Service/FindPath.html">FindPath</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/Service/FoundResponse" data-name="packlink::service::foundresponse">
+      <a href="../Packlink/Service/FoundResponse.html">FoundResponse</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/Service/Hours" data-name="packlink::service::hours">
+      <a href="../Packlink/Service/Hours.html">Hours</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/Service/Info" data-name="packlink::service::info">
+      <a href="../Packlink/Service/Info.html">Info</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/Service/Insurance" data-name="packlink::service::insurance">
+      <a href="../Packlink/Service/Insurance.html">Insurance</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/Service/Item" data-name="packlink::service::item">
+      <a href="../Packlink/Service/Item.html">Item</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/Service/Price" data-name="packlink::service::price">
+      <a href="../Packlink/Service/Price.html">Price</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/Service/Query" data-name="packlink::service::query">
+      <a href="../Packlink/Service/Query.html">Query</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/Service/TimeLeftFirstAvailableDate" data-name="packlink::service::timeleftfirstavailabledate">
+      <a href="../Packlink/Service/TimeLeftFirstAvailableDate.html">TimeLeftFirstAvailableDate</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/tilishop/packlink.cr/Packlink/Shipment" data-name="packlink::shipment">
+      <a href="../Packlink/Shipment.html">Shipment</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/Shipment/Address" data-name="packlink::shipment::address">
+      <a href="../Packlink/Shipment/Address.html">Address</a>
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/tilishop/packlink.cr/Packlink/Shipment/Customs" data-name="packlink::shipment::customs">
+      <a href="../Packlink/Shipment/Customs.html">Customs</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/Shipment/Customs/Item" data-name="packlink::shipment::customs::item">
+      <a href="../Packlink/Shipment/Customs/Item.html">Item</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/Shipment/FindPath" data-name="packlink::shipment::findpath">
+      <a href="../Packlink/Shipment/FindPath.html">FindPath</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/Shipment/FoundResponse" data-name="packlink::shipment::foundresponse">
+      <a href="../Packlink/Shipment/FoundResponse.html">FoundResponse</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/tilishop/packlink.cr/Packlink/Tracking" data-name="packlink::tracking">
+      <a href="../Packlink/Tracking.html">Tracking</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/Tracking/Event" data-name="packlink::tracking::event">
+      <a href="../Packlink/Tracking/Event.html">Event</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/Tracking/FindPath" data-name="packlink::tracking::findpath">
+      <a href="../Packlink/Tracking/FindPath.html">FindPath</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/Tracking/FoundResponse" data-name="packlink::tracking::foundresponse">
+      <a href="../Packlink/Tracking/FoundResponse.html">FoundResponse</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/tilishop/packlink.cr/Packlink/User" data-name="packlink::user">
+      <a href="../Packlink/User.html">User</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/User/CreatedResponse" data-name="packlink::user::createdresponse">
+      <a href="../Packlink/User/CreatedResponse.html">CreatedResponse</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/User/CreatePath" data-name="packlink::user::createpath">
+      <a href="../Packlink/User/CreatePath.html">CreatePath</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/User/FindPath" data-name="packlink::user::findpath">
+      <a href="../Packlink/User/FindPath.html">FindPath</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/User/FoundResponse" data-name="packlink::user::foundresponse">
+      <a href="../Packlink/User/FoundResponse.html">FoundResponse</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/tilishop/packlink.cr/Packlink/Util" data-name="packlink::util">
+      <a href="../Packlink/Util.html">Util</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+
+<div class="main-content">
+<h1 class="type-name">
+
+  <span class="kind">struct</span> Packlink::Callback
+
+</h1>
+
+
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../Packlink/Callback.html">Packlink::Callback</a></li><li class="superclass"><a href="../Packlink/Base.html">Packlink::Base</a></li><li class="superclass">Struct</li><li class="superclass">Value</li><li class="superclass">Object</li></ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2>
+    <a id="defined-in" class="anchor" href="#defined-in">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Defined in:
+  </h2>
+  
+    
+      <a href="https://github.com/tilishop/packlink.cr/blob/401445ca756670f4ee844cacec15b6af3e37bfb1/src/packlink/callback.cr#L2" target="_blank">
+        packlink/callback.cr
+      </a>
+    
+    <br/>
+  
+
+
+
+
+
+
+
+  <h2>
+    <a id="class-method-summary" class="anchor" href="#class-method-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Class Method Summary
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#create(body:NamedTuple%7CHash=A::HS2.new,params:NamedTuple%7CHash=A::HS2.new,query:NamedTuple%7CHash=A::HS2.new,headers:NamedTuple%7CHash=A::HS2.new,client:Client=Client.instance)-class-method" class="signature"><strong>.create</strong>(body : NamedTuple | Hash = <span class="t">A</span><span class="t">::</span><span class="t">HS2</span>.<span class="k">new</span>, params : NamedTuple | Hash = <span class="t">A</span><span class="t">::</span><span class="t">HS2</span>.<span class="k">new</span>, query : NamedTuple | Hash = <span class="t">A</span><span class="t">::</span><span class="t">HS2</span>.<span class="k">new</span>, headers : NamedTuple | Hash = <span class="t">A</span><span class="t">::</span><span class="t">HS2</span>.<span class="k">new</span>, client : Client = <span class="t">Client</span>.instance)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#register(url:String%7CInt32,client:Client=Client.instance)-class-method" class="signature"><strong>.register</strong>(url : String | Int32, client : Client = <span class="t">Client</span>.instance)</a>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+
+
+<div class="methods-inherited">
+  
+    
+
+
+    
+
+  <h3>Constructor methods inherited from struct <code><a href="../Packlink/Base.html">Packlink::Base</a></code></h3>
+  
+  
+    <a href="../Packlink/Base.html#new-class-method" class="tooltip">
+      <span>new</span>
+    new</a>
+    
+  
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+</div>
+
+
+
+
+  <h2>
+    <a id="class-method-detail" class="anchor" href="#class-method-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Class Method Detail
+  </h2>
+  
+    <div class="entry-detail" id="create(body:NamedTuple|Hash=A::HS2.new,params:NamedTuple|Hash=A::HS2.new,query:NamedTuple|Hash=A::HS2.new,headers:NamedTuple|Hash=A::HS2.new,client:Client=Client.instance)-class-method">
+      <div class="signature">
+        
+        def self.<strong>create</strong>(body : NamedTuple | Hash = <span class="t">A</span><span class="t">::</span><span class="t">HS2</span>.<span class="k">new</span>, params : NamedTuple | Hash = <span class="t">A</span><span class="t">::</span><span class="t">HS2</span>.<span class="k">new</span>, query : NamedTuple | Hash = <span class="t">A</span><span class="t">::</span><span class="t">HS2</span>.<span class="k">new</span>, headers : NamedTuple | Hash = <span class="t">A</span><span class="t">::</span><span class="t">HS2</span>.<span class="k">new</span>, client : <a href="../Packlink/Client.html">Client</a> = <span class="t">Client</span>.instance)
+
+        <a class="method-permalink" href="#create(body:NamedTuple%7CHash=A::HS2.new,params:NamedTuple%7CHash=A::HS2.new,query:NamedTuple%7CHash=A::HS2.new,headers:NamedTuple%7CHash=A::HS2.new,client:Client=Client.instance)-class-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/tilishop/packlink.cr/blob/401445ca756670f4ee844cacec15b6af3e37bfb1/src/packlink/callback.cr#L3" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="register(url:String|Int32,client:Client=Client.instance)-class-method">
+      <div class="signature">
+        
+        def self.<strong>register</strong>(url : String | Int32, client : <a href="../Packlink/Client.html">Client</a> = <span class="t">Client</span>.instance)
+
+        <a class="method-permalink" href="#register(url:String%7CInt32,client:Client=Client.instance)-class-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/tilishop/packlink.cr/blob/401445ca756670f4ee844cacec15b6af3e37bfb1/src/packlink/callback.cr#L5" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+
+
+
+</div>
+
+</body>
+</html>

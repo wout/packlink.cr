@@ -1,8 +1,0 @@
-{
-  "event" : "shipment.carrier.success",
-  "datetime" : "2015-01-01 15:55:23",
-  "data" : {
-    "shipment_custom_reference" : "eBay_11993382332589",
-    "shipment_reference" : "DE567YH981230AA"
-  }
-}

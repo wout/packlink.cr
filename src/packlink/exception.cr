@@ -20,16 +20,25 @@ struct Packlink
         exception_messages.as(Array(Packlink::ExceptionMessage))
           .map { |message| message.message.to_s }
           .join(", ")
-          .downcase
-          .capitalize
       end
     end
   end
 
   class ExceptionMessage < Packlink::Exception
     JSON.mapping({
-      message: String?,
+      exception_message: {
+        type: Array(String) | String?,
+        key:  "message",
+      },
     })
+
+    def message
+      if exception_message.is_a?(Array)
+        exception_message.as(Array(String)).join(", ")
+      else
+        exception_message.to_s
+      end
+    end
   end
 
   class MissingApiKeyException < Packlink::Exception; end

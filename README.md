@@ -69,18 +69,18 @@ Available scoped calls for a given API key are:
 
 ```crystal
 Packlink::Client.with_api_key("<your-api-key>") do |packlink|
-  callback.register(*args)
-  customs.pdf(*args)
-  draft.create(*args)
-  dropoff.all(*args)
-  label.all(*args)
-  order.create(*args)
-  service.find(*args)
-  service.from(*args)
-  service.to(*args)
-  service.package(*args)
-  shipment.find(*args)
-  tracking.history(*args)
+  packlink.callback.register(*args)
+  packlink.customs.pdf(*args)
+  packlink.draft.create(*args)
+  packlink.dropoff.all(*args)
+  packlink.label.all(*args)
+  packlink.order.create(*args)
+  packlink.service.find(*args)
+  packlink.service.from(*args)
+  packlink.service.to(*args)
+  packlink.service.package(*args)
+  packlink.shipment.find(*args)
+  packlink.tracking.history(*args)
 end
 ```
 
@@ -232,7 +232,7 @@ services = Packlink::Service
   .all
 ```
 
-Finally, you can also avoid the method chain and use a named tuple or hash:
+Finally, you can also avoid the method chain and use a `NamedTuple` or `Hash`:
 
 ```crystal
 services = Packlink::Service.all(query: {

@@ -9,6 +9,14 @@ struct Packlink
       raise MissingApiKeyException.new("No API key provided") unless @api_key
     end
 
+    def initialize(require_key : Bool)
+      if require_key
+        initialize
+      else
+        @api_key = ""
+      end
+    end
+
     def endpoint
       "https://api#{"sandbox" if Config.sandbox?}.packlink.com"
     end
@@ -52,6 +60,7 @@ struct Packlink
 
       request_headers = http_headers
       headers.each { |key, value| request_headers[key.to_s] = value }
+      request_headers.delete("Authorization") if request_headers["Authorization"] == ""
 
       begin
         if method == "GET"
@@ -108,6 +117,10 @@ struct Packlink
 
     def self.instance
       self.with_api_key(Config.api_key)
+    end
+
+    def self.instance_without_api_key
+      new(false)
     end
 
     def self.with_api_key(api_key : String?)

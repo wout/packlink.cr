@@ -4,11 +4,8 @@ struct Packlink
       token: String,
     }
 
-    def self.user(
-      body : NamedTuple | Hash = A::HS2.new,
-      client : Client = Client.instance
-    )
-      create(body, client: client).token
+    def self.user(body : NamedTuple | Hash = A::HS2.new)
+      create(body, client: Client.instance_without_api_key).token
     end
   end
 end

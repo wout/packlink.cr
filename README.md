@@ -27,6 +27,7 @@ To configure it globally, create an initializer and add the following line:
 ```crystal
 Packlink.configure do |config|
   config.api_key = "<your-api-key>"
+  config.environment = "sandbox" # or "production"
 end
 ```
 
@@ -106,13 +107,13 @@ unless Packlink::User.active?("e0f90eac...")
 end
 ```
 
-#### Logging in
+#### Generating a new token
 
-If a given user already has a Packlink Pro account, the API key can be retreived
-by logging in:
+If a given user already has a Packlink Pro account, a new API key can be
+generated:
 
 ```crystal
-token = Packlink::Auth.login({
+token = Packlink::Auth.generate({
   email:            "myaccount@packlink.com",
   password:         "myPassword",
   platform:         "pro",
@@ -466,8 +467,6 @@ event.data.shipment_reference         # => "DE567YH981230AA"
 - `shipment.label.fail`: Labels have failed.
 - `shipment.tracking.update`: Shipment is in transit.
 - `shipment.delivered`: Shipment has been delivered.
-
-##### shipment.carrier.fail
 
 ## Contributing
 

@@ -28,6 +28,28 @@ describe Packlink::Client do
         Packlink::Client.new
       end
     end
+
+    it "can be initialized explicitly without an api key" do
+      client = Packlink::Client.new(false)
+      client.api_key.should eq("")
+    end
+
+    it "can be initialized explicitly with an api key" do
+      expect_raises(Packlink::MissingApiKeyException) do
+        Packlink::Client.new(true)
+      end
+    end
+
+    it "can be initialized explicitly without an api key" do
+      client = Packlink::Client.new(false)
+      client.api_key.should eq("")
+    end
+
+    it "can be initialized explicitly with an api key" do
+      expect_raises(Packlink::MissingApiKeyException) do
+        Packlink::Client.new(true)
+      end
+    end
   end
 
   describe "#endpoint" do
@@ -61,12 +83,18 @@ describe Packlink::Client do
       end
     end
 
-    it "has defaults to be able to perform a request" do
+    it "does not have an authorization header with a blank key" do
+      header = {
+        "Accept"       => "application/json",
+        "Content-Type" => "application/json",
+        "Host"         => "apisandbox.packlink.com",
+      }
       WebMock.stub(:get, "https://apisandbox.packlink.com/v1/my-method")
-        .with(headers: {"Authorization" => "secret_key"})
+        .with(headers: header)
         .to_return(status: 200, body: "{}")
 
-      test_client.perform_http_call("GET", "my-method")
+      client = Packlink::Client.instance_without_api_key
+      client.perform_http_call("GET", "my-method")
     end
 
     it "accepts additional headers" do
@@ -188,6 +216,14 @@ describe Packlink::Client do
     end
   end
 
+  describe ".instance_without_api_key" do
+    it "returns a new instance" do
+      client = Packlink::Client.instance_without_api_key
+      client.should be_a(Packlink::Client)
+      client.api_key.should eq("")
+    end
+  end
+
   describe ".with_api_key" do
     context "without a block" do
       it "returns the instance for a given api key" do
@@ -217,8 +253,9 @@ describe Packlink::Client do
           .to_return(body: read_fixture("registrations/post-response"))
 
         Packlink::Client.with_api_key("first_key") do |packlink|
-          packlink.register.user({email: "a@b.c"})
-            .should be_a(String)
+          packlink
+          # packlink.register.user({email: "a@b.c"})
+          #   .should be_a(String)
           # packlink.refund.get("first_refund").should be_a(Packlink::Refund)
         end
 

@@ -5,10 +5,7 @@ struct Packlink
       token: String,
     }
 
-    def self.login(
-      credentials : NamedTuple | Hash,
-      client : Client = Client.instance
-    )
+    def self.generate(credentials : NamedTuple | Hash)
       credentials = Util.normalize_hash(credentials)
       email = credentials.delete("email")
       password = credentials.delete("password")
@@ -22,21 +19,21 @@ struct Packlink
       response = find(
         query: credentials,
         headers: {"Authorization" => header},
-        client: client)
+        client: Client.instance_without_api_key)
       response.token
     end
 
-    def self.reset_password(
-      details : NamedTuple | Hash,
-      client : Client = Client.instance
-    )
+    def self.reset_password(details : NamedTuple | Hash)
       query = Util.normalize_hash(details)
 
       unless email = query.delete("email")
         raise AuthCredentialsMissingException.new("An email addess is required")
       end
 
-      create({email: email}, query: query, client: client)
+      create(
+        {email: email},
+        query: query,
+        client: Client.instance_without_api_key)
     end
 
     def self.encoded_auth_header(email : String, password : String)

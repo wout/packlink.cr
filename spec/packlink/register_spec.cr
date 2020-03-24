@@ -5,10 +5,6 @@ def test_registration
 end
 
 describe Packlink::Register do
-  before_each do
-    configure_test_api_key
-  end
-
   describe ".create" do
     it "registers a user" do
       WebMock.stub(:post, "https://apisandbox.packlink.com/v1/register")
@@ -33,7 +29,7 @@ describe Packlink::Register do
           onboarding_sub_product: "sub_dummy",
         },
         source: "https://urlwhereregistrationoffered",
-      })
+      }, client: Packlink::Client.instance_without_api_key)
       response.should be_a(Packlink::Register::CreatedResponse)
       response.token.should eq("de1badc159485f880000c954ebf26795a70b5fdf6433875488358e6496c566c4")
     end
@@ -45,7 +41,7 @@ describe Packlink::Register do
       expect_raises(Packlink::RequestException) do
         Packlink::Register.create({
           email: "myaccount@packlink.es",
-        })
+        }, client: Packlink::Client.instance_without_api_key)
       end
     end
   end

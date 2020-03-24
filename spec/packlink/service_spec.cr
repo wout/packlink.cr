@@ -241,6 +241,20 @@ describe Packlink::Service::Query do
         "weight" => "1.5",
       })
     end
+
+    it "accepts a named tuple" do
+      query = Packlink::Service::Query.new
+      query.from("GB", "BN2 1JJ").to("BE", 2000)
+      query.package({width: 20, height: 30, length: 40, weight: 3})
+      hash = query.to_h
+      hash["packages"].size.should eq(1)
+      hash["packages"]["0"].should eq({
+        "width"  => "20",
+        "height" => "30",
+        "length" => "40",
+        "weight" => "3",
+      })
+    end
   end
 
   describe "#all" do

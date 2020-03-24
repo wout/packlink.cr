@@ -46,13 +46,17 @@ If you need to do multiple calls with the same API key, use the following helper
 
 ```crystal
 Packlink::Client.with_api_key("<your-api-key>") do |packlink|
-  from_gb_to_be = packlink.shipment
-    .from("GB", "BN2 1JJ").to("BE", 2000)
-    .package({width: 40, height: 30, length: 25, weight: 5}).all
-  from_de_to_fr = packlink.shipment
-    .package({width: 40, height: 30, length: 25, weight: 5})
-    .package({width: 10, height: 10, length: 10, weight: 1})
-    .from("DE", 10587).to("FR", 75013).all
+  begin
+    from_gb_to_be = packlink.shipment
+      .from("GB", "BN2 1JJ").to("BE", 2000)
+      .package({width: 40, height: 30, length: 25, weight: 5}).all
+    from_de_to_fr = packlink.shipment
+      .package({width: 40, height: 30, length: 25, weight: 5})
+      .package({width: 10, height: 10, length: 10, weight: 1})
+      .from("DE", 10587).to("FR", 75013).all
+  rescue e : Packlink::RequestException
+    puts e.message
+  end
 end
 ```
 

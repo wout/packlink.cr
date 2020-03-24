@@ -110,6 +110,10 @@ struct Packlink
         self
       end
 
+      def package(package : Hash | NamedTuple)
+        package(Packlink::Package.build(package))
+      end
+
       def all(client : Client? = nil)
         Packlink::Service.all(query: to_h, client: client || @client)
       end

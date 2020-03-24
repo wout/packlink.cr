@@ -496,6 +496,10 @@ event.data.shipment_reference         # => "DE567YH981230AA"
 - `shipment.tracking.update`: Shipment is in transit.
 - `shipment.delivered`: Shipment has been delivered.
 
+## Documentation
+
+- [Shard API Docs](https://tilishop.github.io/packlink.cr/)
+
 ## Contributing
 
 1. Fork it at https://github.com/tilishop/packlink.cr/fork

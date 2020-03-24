@@ -2,8 +2,11 @@ struct Packlink
   struct Callback < Base
     will_create "shipments/callback"
 
-    def self.register(url : String)
-      create({url: url})
+    def self.register(
+      url : String | Int32,
+      client : Client = Client.instance
+    )
+      create({url: url}, client: client)
     end
 
     struct Event

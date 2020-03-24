@@ -4,8 +4,11 @@ struct Packlink
       history: Array(Event),
     }
 
-    def self.history(shipment_reference : String)
-      find({shipment_reference: shipment_reference}).history
+    def self.history(
+      shipment_reference : String,
+      client : Client = Client.instance
+    )
+      find({shipment_reference: shipment_reference}, client: client).history
     end
 
     struct Event

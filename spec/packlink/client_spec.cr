@@ -248,21 +248,26 @@ describe Packlink::Client do
       end
 
       it "will use the same api key for all calls within a block" do
-        WebMock.stub(:post, "https://apisandbox.packlink.com/v1/register")
+        WebMock.stub(:get, "https://apisandbox.packlink.com/v1/shipments/DE2015API0000003515")
           .with(headers: {"Authorization" => "first_key"})
-          .to_return(body: read_fixture("registrations/post-response"))
+          .to_return(body: read_fixture("shipments/get-response"))
+        WebMock.stub(:get, "https://apisandbox.packlink.com/v1/shipments/ES00019388AB/track")
+          .with(headers: {"Authorization" => "first_key"})
+          .to_return(body: read_fixture("tracking/get-response"))
+        WebMock.stub(:get, "https://apisandbox.packlink.com/v1/services?from[country]=BE&from[zip]=1000&to[country]=GB&to[zip]=BN2+1JJ&packages[0][width]=10&packages[0][height]=10&packages[0][length]=10&packages[0][weight]=1")
+          .with(headers: {"Authorization" => "another_key"})
+          .to_return(body: read_fixture("services/all-response"))
 
         Packlink::Client.with_api_key("first_key") do |packlink|
-          packlink
-          # packlink.register.user({email: "a@b.c"})
-          #   .should be_a(String)
-          # packlink.refund.get("first_refund").should be_a(Packlink::Refund)
+          packlink.shipment.find("DE2015API0000003515")
+          packlink.tracking.history("ES00019388AB")
         end
 
         Packlink::Client.with_api_key("another_key") do |packlink|
-          packlink
-          # packlink.payment.get("another_payment").should be_a(Packlink::Payment)
-          # packlink.profile.get("another_profile").should be_a(Packlink::Profile)
+          packlink.service
+            .package({width: 10, height: 10, length: 10, weight: 1})
+            .from("BE", 1000)
+            .to("GB", "BN2 1JJ").all
         end
       end
     end

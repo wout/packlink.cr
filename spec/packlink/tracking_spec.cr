@@ -6,7 +6,7 @@ describe Packlink::Tracking do
   end
 
   describe ".find" do
-    it "fetches the hostory for a given shipment reference" do
+    it "fetches the history for a given shipment reference" do
       WebMock.stub(:get, "https://apisandbox.packlink.com/v1/shipments/ES00019388AB/track")
         .to_return(body: read_fixture("tracking/get-response"))
 

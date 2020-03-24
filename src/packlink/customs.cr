@@ -4,8 +4,11 @@ struct Packlink
       url: String,
     }
 
-    def self.pdf(shipment_reference : String)
-      find({shipment_reference: shipment_reference}).url
+    def self.pdf(
+      shipment_reference : String,
+      client : Client = Client.instance
+    )
+      find({shipment_reference: shipment_reference}, client: client).url
     end
   end
 end

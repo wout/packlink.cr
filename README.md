@@ -42,7 +42,7 @@ shipments = Packlink::Shipment
   .all(client: client)
 ```
 
-If you need to do multiple calls with the same API Key, use the following helper:
+If you need to do multiple calls with the same API key, use the following helper:
 
 ```crystal
 Packlink::Client.with_api_key("<your-api-key>") do |packlink|
@@ -53,6 +53,25 @@ Packlink::Client.with_api_key("<your-api-key>") do |packlink|
     .package({width: 40, height: 30, length: 25, weight: 5})
     .package({width: 10, height: 10, length: 10, weight: 1})
     .from("DE", 10587).to("FR", 75013).all
+end
+```
+
+Available scoped calls for a given API key are:
+
+```crystal
+Packlink::Client.with_api_key("<your-api-key>") do |packlink|
+  callback.register(*args)
+  customs.pdf(*args)
+  draft.create(*args)
+  dropoff.all(*args)
+  label.all(*args)
+  order.create(*args)
+  service.find(*args)
+  service.from(*args)
+  service.to(*args)
+  service.package(*args)
+  shipment.find(*args)
+  tracking.history(*args)
 end
 ```
 

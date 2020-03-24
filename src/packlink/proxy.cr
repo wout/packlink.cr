@@ -7,7 +7,15 @@ struct Packlink
 
     {% begin %}
       {% resources = {
-           service: {"find", "from", "to", "package"},
+           callback: {"register"},
+           customs:  {"pdf"},
+           draft:    {"create"},
+           dropoff:  {"all"},
+           label:    {"all"},
+           order:    {"create"},
+           service:  {"find", "from", "to", "package"},
+           shipment: {"find"},
+           tracking: {"history"},
          } %}
 
       {% for resource, methods in resources %}

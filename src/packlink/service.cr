@@ -67,7 +67,7 @@ struct Packlink
       package : Hash | NamedTuple,
       client : Client = Client.instance
     )
-      package(Packlink::Package.build(package))
+      package(Packlink::Package.build(package), client: client)
     end
 
     def self.package(

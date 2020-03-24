@@ -26,8 +26,11 @@ struct Packlink
       weight:                    BigDecimal,
     }
 
-    def self.find(reference : String)
-      find({reference: reference})
+    def self.find(
+      reference : String,
+      client : Client = Client.instance
+    )
+      find({reference: reference}, client: client)
     end
 
     struct Address

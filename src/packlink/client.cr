@@ -70,9 +70,9 @@ struct Packlink
           response = client.exec(method, path, headers: request_headers, body: body)
         end
         render(response)
-      rescue e : IO::Timeout
+      rescue e : IO::TimeoutError
         raise RequestTimeoutException.new(e.message)
-      rescue e : IO::EOFError | Errno
+      rescue e : IO::EOFError
         raise Exception.new(e.message)
       end
     end

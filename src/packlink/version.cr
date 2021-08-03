@@ -1,3 +1,3 @@
 struct Packlink
-  VERSION = "v1.1.5"
+  VERSION = "v1.2.0"
 end

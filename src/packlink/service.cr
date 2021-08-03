@@ -119,7 +119,7 @@ struct Packlink
       end
 
       def to_h
-        if @query["from"]? && @query["to"]? && @packages.any?
+        if @query["from"]? && @query["to"]? && !@packages.empty?
           keys = (0..(@packages.size - 1)).to_a.map(&.to_s)
           @query.merge({"packages" => Hash.zip(keys, @packages)})
         else

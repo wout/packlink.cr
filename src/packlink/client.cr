@@ -66,7 +66,7 @@ struct Packlink
         if method == "GET"
           response = client.get(path, headers: request_headers)
         else
-          body = body.to_h.delete_if { |_k, v| v.nil? }.to_json
+          body = body.to_h.reject! { |_k, v| v.nil? }.to_json
           response = client.exec(method, path, headers: request_headers, body: body)
         end
         render(response)

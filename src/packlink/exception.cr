@@ -18,7 +18,7 @@ struct Packlink
         exception_message.to_s
       else
         exception_messages.as(Array(Packlink::ExceptionMessage))
-          .map { |message| message.message.to_s }
+          .map(&.message.to_s)
           .join(", ")
       end
     end

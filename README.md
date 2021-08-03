@@ -14,7 +14,7 @@ Add packlink as a depencency to your application's `shard.yml`:
 ```yaml
 dependencies:
   packlink:
-    github: tilishop/packlink.cr
+    github: wout/packlink.cr
 ```
 
 Then run `shards install`.
@@ -192,7 +192,7 @@ service.available_dates["2020/03/30"].to_s  # => "08:00-18:00"
 ```
 
 *__Note:__ For a full list if available fields, check the
-[services spec fixture](https://github.com/tilishop/packlink.cr/blob/master/spec/fixtures/services/all-response.json).* 
+[services spec fixture](https://github.com/wout/packlink.cr/blob/master/spec/fixtures/services/all-response.json).* 
 
 You can also add multiple packages and the order of the method chain is not
 important:
@@ -444,7 +444,7 @@ shipment.collection_hour    # => "00:00-24:00"
 ```
 
 *__Note:__ For a full list if available fields, check the
-[shipment spec fixture](https://github.com/tilishop/packlink.cr/blob/master/spec/fixtures/shipments/get-response.json).*
+[shipment spec fixture](https://github.com/wout/packlink.cr/blob/master/spec/fixtures/shipments/get-response.json).*
 
 ### Track a Shipment
 
@@ -499,11 +499,11 @@ event.data.shipment_reference         # => "DE567YH981230AA"
 
 ## Documentation
 
-- [Shard API Docs](https://tilishop.github.io/packlink.cr/)
+- [Shard API Docs](https://wout.github.io/packlink.cr/)
 
 ## Contributing
 
-1. Fork it at https://github.com/tilishop/packlink.cr/fork
+1. Fork it at https://github.com/wout/packlink.cr/fork
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
@@ -512,4 +512,3 @@ event.data.shipment_reference         # => "DE567YH981230AA"
 ## Contributors
 
 - [wout](https://github.com/wout) - creator and maintainer
-- [tilishop](https://github.com/tilishop) - owner and maintainer
